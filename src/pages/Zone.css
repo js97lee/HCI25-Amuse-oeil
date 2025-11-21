@@ -1,0 +1,133 @@
+.zone-container {
+  min-height: 100vh;
+  padding: 3rem 2rem;
+  background: #000000;
+}
+
+.zone-content {
+  max-width: 1400px;
+  margin: 0 auto;
+  background: transparent;
+}
+
+.zone-title {
+  font-family: var(--font-luxury);
+  font-size: 4rem;
+  color: #ffffff;
+  text-align: center;
+  margin-bottom: 1rem;
+  font-weight: normal;
+  letter-spacing: 0.05em;
+}
+
+.zone-description {
+  font-size: 1.1rem;
+  color: #cccccc;
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.works-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 2.5rem;
+  margin-bottom: 4rem;
+}
+
+.work-card {
+  background: transparent;
+  border: 1px solid #2a2a2a;
+  padding: 0;
+  text-align: center;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.work-card:hover {
+  border-color: #ffffff;
+  transform: translateY(-5px);
+}
+
+.work-media-placeholder {
+  width: 100%;
+  height: 350px;
+  background: #1a1a1a;
+  margin-bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border-bottom: 1px solid #2a2a2a;
+}
+
+.work-media-placeholder img,
+.work-media-placeholder video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.placeholder-text {
+  color: #666666;
+  font-size: 1rem;
+  font-weight: 400;
+}
+
+.work-chef {
+  font-size: 1.3rem;
+  color: #ffffff;
+  margin: 1.5rem 0 0.5rem 0;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.work-name {
+  font-size: 0.95rem;
+  color: #999999;
+  margin-bottom: 1.5rem;
+}
+
+.zone-navigation {
+  display: flex;
+  justify-content: space-between;
+  gap: 1.5rem;
+  margin-top: 3rem;
+  padding-top: 3rem;
+  border-top: 1px solid #2a2a2a;
+}
+
+.nav-button {
+  flex: 1;
+  padding: 1rem 2rem;
+  font-size: 0.95rem;
+  border: 1px solid #333333;
+  border-radius: 0;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.nav-button.prev {
+  background: transparent;
+  color: #ffffff;
+  border-color: #333333;
+}
+
+.nav-button.prev:hover {
+  border-color: #ffffff;
+  background: #1a1a1a;
+}
+
+.nav-button.next {
+  background: #ffffff;
+  color: #000000;
+  border-color: #ffffff;
+}
+
+.nav-button.next:hover {
+  background: transparent;
+  color: #ffffff;
+}

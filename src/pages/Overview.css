@@ -1,0 +1,73 @@
+.overview-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #000000;
+  padding: 2rem;
+}
+
+.overview-content {
+  max-width: 1000px;
+  width: 100%;
+  background: transparent;
+  text-align: center;
+}
+
+.poster-section {
+  margin-bottom: 3rem;
+}
+
+.poster-image {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+.exhibition-title {
+  font-family: var(--font-luxury);
+  font-size: 4rem;
+  color: #ffffff;
+  margin-bottom: 2rem;
+  font-weight: normal;
+  letter-spacing: 0.05em;
+}
+
+.exhibition-description {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: #cccccc;
+  margin-bottom: 4rem;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.exhibition-description p {
+  margin-bottom: 1.5rem;
+}
+
+.start-button {
+  background: #ffffff;
+  color: #000000;
+  border: 1px solid #ffffff;
+  padding: 1rem 3rem;
+  font-size: 1rem;
+  border-radius: 0;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.start-button:hover {
+  background: transparent;
+  color: #ffffff;
+  border-color: #ffffff;
+}
+
+.start-button:active {
+  transform: scale(0.98);
+}

@@ -1,0 +1,135 @@
+.remu-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #000000;
+  padding: 2rem;
+}
+
+.remu-content {
+  max-width: 1100px;
+  width: 100%;
+  background: transparent;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3rem;
+}
+
+.remu-character {
+  margin-bottom: 1rem;
+}
+
+.remu-image {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #ffffff;
+}
+
+.interaction-section {
+  width: 100%;
+  text-align: center;
+}
+
+.remu-greeting {
+  font-family: var(--font-luxury);
+  font-size: 2.5rem;
+  color: #ffffff;
+  margin-bottom: 1.5rem;
+  font-weight: normal;
+  letter-spacing: 0.02em;
+}
+
+.remu-message {
+  font-size: 1.1rem;
+  color: #cccccc;
+  margin-bottom: 3rem;
+  line-height: 1.8;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.chef-selection {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.chef-card {
+  background: transparent;
+  color: #ffffff;
+  border: 1px solid #333333;
+  padding: 2.5rem;
+  border-radius: 0;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: center;
+}
+
+.chef-card:hover {
+  border-color: #ffffff;
+  background: #1a1a1a;
+  transform: translateY(-3px);
+}
+
+.chef-card h3 {
+  font-size: 1.5rem;
+  margin-bottom: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.chef-card p {
+  font-size: 0.95rem;
+  color: #999999;
+  line-height: 1.6;
+}
+
+.recommendation-section {
+  text-align: center;
+  padding: 2rem;
+}
+
+.recommendation-title {
+  font-family: var(--font-luxury);
+  font-size: 2.5rem;
+  color: #ffffff;
+  margin-bottom: 1.5rem;
+  font-weight: normal;
+  letter-spacing: 0.02em;
+}
+
+.recommendation-message {
+  font-size: 1.1rem;
+  color: #cccccc;
+  margin-bottom: 3rem;
+  line-height: 1.8;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.continue-button {
+  background: #ffffff;
+  color: #000000;
+  border: 1px solid #ffffff;
+  padding: 1rem 3rem;
+  font-size: 1rem;
+  border-radius: 0;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.continue-button:hover {
+  background: transparent;
+  color: #ffffff;
+  border-color: #ffffff;
+}
