@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import HomeButton from '../components/HomeButton';
 import './Survey.css';
 
 function Survey() {
@@ -30,6 +31,7 @@ function Survey() {
   if (submitted) {
     return (
       <div className="survey-container">
+        <HomeButton />
         <div className="survey-content">
           <h1 className="thank-you-title luxury-title">감사합니다!</h1>
           <p className="thank-you-message">
@@ -49,6 +51,7 @@ function Survey() {
 
   return (
     <div className="survey-container">
+      <HomeButton />
       <div className="survey-content">
         <h1 className="survey-title luxury-title">설문조사</h1>
         <p className="survey-intro">

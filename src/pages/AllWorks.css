@@ -25,6 +25,7 @@
   color: #cccccc;
   text-align: center;
   margin-bottom: 4rem;
+  font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
 }
 
 .works-grid {
@@ -115,11 +116,13 @@
   margin-bottom: 0.5rem;
   font-weight: 600;
   letter-spacing: 0.02em;
+  font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
 }
 
 .work-name {
   font-size: 0.95rem;
   color: #999999;
+  font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
 }
 
 .all-works-footer {
@@ -141,6 +144,7 @@
   font-weight: 500;
   letter-spacing: 0.05em;
   text-transform: uppercase;
+  font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
 }
 
 .home-button:hover {

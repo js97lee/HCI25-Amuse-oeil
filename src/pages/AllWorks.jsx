@@ -1,4 +1,5 @@
 import { useNavigate } from 'react-router-dom';
+import HomeButton from '../components/HomeButton';
 import './AllWorks.css';
 
 function AllWorks() {
@@ -26,6 +27,7 @@ function AllWorks() {
 
   return (
     <div className="all-works-container">
+      <HomeButton />
       <div className="all-works-content">
         <h1 className="all-works-title luxury-title">작품 전체 보기</h1>
         <p className="all-works-description">

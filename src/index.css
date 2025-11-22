@@ -28,7 +28,8 @@
 :root {
   /* 폰트 설정 */
   --font-luxury: 'Kalieb Luxury', serif;
-  --font-body: 'Pretendard', 'Outfit', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  --font-body: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  --font-korean: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
   
   /* 색상 설정 - 블랙&화이트 테마 */
   --color-black: #000000;
@@ -39,8 +40,8 @@
   --color-gray-lighter: #999999;
   --color-border: #2a2a2a;
   
-  /* 기본 폰트 */
-  font-family: var(--font-body);
+  /* 기본 폰트 - 한글은 Pretendard */
+  font-family: var(--font-korean);
   line-height: 1.6;
   font-weight: 400;
   color-scheme: dark;
@@ -50,6 +51,11 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+/* 한글 텍스트에 Pretendard 강제 적용 */
+body, p, span, div, button, input, textarea, select, label, h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-korean);
 }
 
 body {

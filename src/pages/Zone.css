@@ -10,6 +10,103 @@
   background: transparent;
 }
 
+/* Zone 설명 섹션 */
+.zone-intro-section {
+  display: flex;
+  gap: 3rem;
+  align-items: center;
+  padding: 3rem 0;
+  transition: all 0.5s ease;
+}
+
+.zone-intro-section.fullscreen {
+  min-height: calc(100vh - 6rem);
+  margin-bottom: 0;
+  border-bottom: none;
+  justify-content: center;
+}
+
+.zone-intro-image {
+  flex: 1;
+  max-width: 500px;
+  min-width: 300px;
+}
+
+.zone-intro-image img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  display: block;
+}
+
+.zone-intro-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.zone-intro-name {
+  font-family: var(--font-luxury);
+  font-size: 3rem;
+  color: #ffffff;
+  font-weight: normal;
+  letter-spacing: 0.05em;
+  margin: 0;
+}
+
+.zone-intro-description {
+  font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: #cccccc;
+}
+
+.zone-intro-description p {
+  margin: 0.5rem 0;
+}
+
+.zone-intro-description p:empty {
+  height: 1rem;
+}
+
+.view-works-button {
+  margin-top: 2rem;
+  padding: 1.2rem 3rem;
+  font-size: 1rem;
+  border: 1px solid #ffffff;
+  background: transparent;
+  color: #ffffff;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  align-self: flex-start;
+}
+
+.view-works-button:hover {
+  background: #ffffff;
+  color: #000000;
+}
+
+@media (max-width: 968px) {
+  .zone-intro-section {
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .zone-intro-image {
+    max-width: 100%;
+    min-width: auto;
+  }
+
+  .zone-intro-name {
+    font-size: 2.5rem;
+  }
+}
+
 .zone-title {
   font-family: var(--font-luxury);
   font-size: 4rem;
@@ -25,6 +122,7 @@
   color: #cccccc;
   text-align: center;
   margin-bottom: 4rem;
+  font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
 }
 
 .works-grid {
@@ -32,6 +130,97 @@
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
   gap: 2.5rem;
   margin-bottom: 4rem;
+}
+
+/* Expo Slider 스타일 */
+.works-slider-container {
+  width: 100%;
+  padding: 4rem 0;
+  margin-bottom: 4rem;
+  overflow: hidden;
+}
+
+.works-swiper {
+  width: 100%;
+  padding: 2rem 0 4rem 0 !important;
+}
+
+.work-slide {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.5s ease;
+}
+
+.work-card-slider {
+  width: 100%;
+  max-width: 600px;
+  background: transparent;
+  border: 1px solid #2a2a2a;
+  overflow: hidden;
+  transition: all 0.5s ease;
+  transform-origin: center;
+}
+
+.work-slide.swiper-slide-active .work-card-slider {
+  transform: scale(1.1);
+  border-color: #ffffff;
+}
+
+.work-media-slider {
+  width: 100%;
+  height: 500px;
+  background: #1a1a1a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
+}
+
+.work-media-slider img,
+.work-media-slider video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.work-slide.swiper-slide-active .work-media-slider img,
+.work-slide.swiper-slide-active .work-media-slider video {
+  transform: scale(1.05);
+}
+
+.work-info-slider {
+  padding: 2rem;
+  text-align: center;
+  background: transparent;
+}
+
+.work-info-slider .work-chef {
+  font-size: 1.5rem;
+  color: #ffffff;
+  margin: 0 0 0.5rem 0;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+}
+
+.work-info-slider .work-name {
+  font-size: 1rem;
+  color: #999999;
+  margin: 0;
+  font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+}
+
+@media (max-width: 768px) {
+  .work-media-slider {
+    height: 400px;
+  }
+  
+  .works-swiper {
+    padding: 1rem 0 3rem 0 !important;
+  }
 }
 
 .work-card {
@@ -80,12 +269,14 @@
   margin: 1.5rem 0 0.5rem 0;
   font-weight: 600;
   letter-spacing: 0.02em;
+  font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
 }
 
 .work-name {
   font-size: 0.95rem;
   color: #999999;
   margin-bottom: 1.5rem;
+  font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
 }
 
 .zone-navigation {
@@ -108,6 +299,7 @@
   font-weight: 500;
   letter-spacing: 0.05em;
   text-transform: uppercase;
+  font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
 }
 
 .nav-button.prev {

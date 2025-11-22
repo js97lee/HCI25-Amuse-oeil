@@ -1,4 +1,5 @@
 import { useNavigate } from 'react-router-dom';
+import HomeButton from '../components/HomeButton';
 import './Closing.css';
 
 function Closing() {
@@ -6,6 +7,7 @@ function Closing() {
 
   return (
     <div className="closing-container">
+      <HomeButton />
       <div className="closing-content">
         <h1 className="closing-title luxury-title">감사합니다</h1>
         <div className="closing-message">
