@@ -33,7 +33,7 @@ function Survey() {
       <div className="survey-container">
         <HomeButton />
         <div className="survey-content">
-          <h1 className="thank-you-title luxury-title">감사합니다!</h1>
+          <h1 className="thank-you-title luxury-title">Thank You!</h1>
           <p className="thank-you-message">
             소중한 의견을 주셔서 감사합니다. 
             여러분의 피드백은 더 나은 전시를 만드는 데 큰 도움이 됩니다.
@@ -42,7 +42,7 @@ function Survey() {
             className="back-button"
             onClick={() => navigate('/all-works')}
           >
-            작품 전체 보기
+            View All Works
           </button>
         </div>
       </div>

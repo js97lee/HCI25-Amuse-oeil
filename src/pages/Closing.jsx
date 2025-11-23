@@ -9,7 +9,7 @@ function Closing() {
     <div className="closing-container">
       <HomeButton />
       <div className="closing-content">
-        <h1 className="closing-title luxury-title">감사합니다</h1>
+        <h1 className="closing-title luxury-title">Thank You</h1>
         <div className="closing-message">
           <p>
             HCI Amuse-Oeil 전시를 관람해주셔서 감사합니다.
@@ -33,7 +33,7 @@ function Closing() {
             className="closing-button all-works"
             onClick={() => navigate('/all-works')}
           >
-            작품 전체 보기
+            View All Works
           </button>
         </div>
       </div>

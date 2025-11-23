@@ -18,7 +18,7 @@ function Zone({ zoneNumber, zoneInfo }) {
   };
 
   return (
-    <div className="zone-container">
+    <div className={`zone-container ${zoneNumber === 3 ? 'zone-3' : ''}`}>
       <HomeButton />
       <div className="zone-content">
         {/* Zone 설명 섹션 - 작품 보기 전에만 표시 */}
@@ -51,7 +51,7 @@ function Zone({ zoneNumber, zoneInfo }) {
         {/* 작품 섹션 - 작품 보기 버튼 클릭 후 표시 */}
         {showWorks && (
           <>
-            <h1 className="zone-title luxury-title">Zone {zoneNumber}</h1>
+            <h1 className="zone-title luxury-title">{zoneInfo.name}</h1>
             <p className="zone-description">{zoneInfo.descriptionText}</p>
             <div className="works-slider-container">
               <Swiper
@@ -62,7 +62,7 @@ function Zone({ zoneNumber, zoneInfo }) {
                 {zoneInfo.works.map((work, index) => (
                   <SwiperSlide key={index} className="work-slide">
                     <div className="work-card-slider">
-                      <div className="work-media-slider" data-swiper-parallax="-200">
+                      <div className={`work-media-slider ${zoneNumber === 3 && work.chef === 'Tea Cocktail' ? 'tea-cocktail-vertical' : ''}`} data-swiper-parallax="-200">
                         {work.type === 'video' ? (
                           <video 
                             src={work.media}
@@ -84,8 +84,23 @@ function Zone({ zoneNumber, zoneInfo }) {
                         </div>
                       </div>
                       <div className="work-info-slider" data-swiper-parallax="-100">
-                        <h3 className="work-chef">{work.chef}</h3>
                         <p className="work-name">{work.name}</p>
+                        <h3 className="work-chef">{work.chef}</h3>
+                        {work.description && work.description.ko && (
+                          <div className="work-description">
+                            <p className="work-description-text">{work.description.ko}</p>
+                            {work.ingredients && work.ingredients.length > 0 && (
+                              <div className="work-ingredients">
+                                <p className="work-ingredients-title">재료:</p>
+                                <ul>
+                                  {work.ingredients.map((ingredient, idx) => (
+                                    <li key={idx}>{ingredient}</li>
+                                  ))}
+                                </ul>
+                              </div>
+                            )}
+                          </div>
+                        )}
                       </div>
                     </div>
                   </SwiperSlide>

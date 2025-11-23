@@ -5,6 +5,45 @@
   justify-content: center;
   background: #000000;
   padding: 2rem;
+  position: relative;
+}
+
+/* 초기 인사 화면 배경 - 질문 섹션과 동일한 배경 */
+.remu-container:not(.has-question)::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url('/Poster/BG-question.png');
+  background-size: 50% 100%;
+  background-position: left center;
+  background-repeat: repeat-x;
+  z-index: 0;
+  /* 경계 블러 처리 */
+  mask-image:
+    linear-gradient(to right,
+      transparent 0%,
+      black 5%,
+      black 45%,
+      transparent 50%,
+      black 55%,
+      black 95%,
+      transparent 100%);
+  -webkit-mask-image:
+    linear-gradient(to right,
+      transparent 0%,
+      black 5%,
+      black 45%,
+      transparent 50%,
+      black 55%,
+      black 95%,
+      transparent 100%);
+}
+
+.remu-container.has-question {
+  background: transparent;
 }
 
 .remu-content {
@@ -15,18 +54,78 @@
   flex-direction: column;
   align-items: center;
   gap: 3rem;
+  position: relative;
+  z-index: 1;
 }
 
 .remu-character {
-  margin-bottom: 1rem;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 0;
+}
+
+/* 영상 테두리 흐림 효과 - 더 강하게 */
+.remu-character::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    radial-gradient(ellipse at center, transparent 20%, rgba(0, 0, 0, 0.4) 50%, rgba(0, 0, 0, 0.8) 80%, rgba(0, 0, 0, 1) 100%),
+    linear-gradient(to right, rgba(0, 0, 0, 0.9) 0%, transparent 15%, transparent 85%, rgba(0, 0, 0, 0.9) 100%),
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.9) 0%, transparent 15%, transparent 85%, rgba(0, 0, 0, 0.9) 100%);
+  z-index: 1;
+  pointer-events: none;
 }
 
 .remu-image {
-  width: 250px;
-  height: 250px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   object-fit: contain;
-  border: 2px solid rgba(255, 255, 255, 0.2);
+  object-position: center;
+  border: none;
   background: transparent;
+  z-index: 0;
+}
+
+.remu-character::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.1);
+  z-index: 0;
+}
+
+.remu-text-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 2rem;
+  z-index: 1;
 }
 
 .interaction-section {
@@ -35,44 +134,78 @@
 }
 
 .remu-greeting {
-  font-family: var(--font-luxury);
-  font-size: 2.5rem;
+  font-family: var(--font-luxury) !important;
+  font-size: 3.33rem;
   color: #ffffff;
   margin-bottom: 1.5rem;
   font-weight: normal;
   letter-spacing: 0.02em;
+  line-height: 1.2;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
 }
 
 .remu-message {
   font-size: 1.1rem;
-  color: #cccccc;
+  color: #ffffff;
   margin-bottom: 3rem;
   line-height: 1.8;
   max-width: 600px;
   margin-left: auto;
   margin-right: auto;
   font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+}
+
+.language-toggle {
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  color: #ffffff;
+  border: 1px solid var(--glass-border);
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  z-index: 10;
+  box-shadow: var(--glass-shadow);
+}
+
+.language-toggle:hover {
+  background: var(--glass-hover-bg);
+  border-color: rgba(255, 255, 255, 0.4);
+  transform: translateY(-2px);
 }
 
 .start-survey-button {
-  background: #ffffff;
-  color: #000000;
-  border: 1px solid #ffffff;
+  background: var(--glass-hover-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  color: #ffffff;
+  border: 1px solid var(--glass-border);
   padding: 1rem 3rem;
   font-size: 1rem;
-  border-radius: 0;
+  border-radius: 4px;
   cursor: pointer;
   transition: all 0.3s ease;
   font-weight: 500;
   letter-spacing: 0.05em;
   text-transform: uppercase;
   font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  box-shadow: var(--glass-shadow);
 }
 
 .start-survey-button:hover {
-  background: transparent;
-  color: #ffffff;
-  border-color: #ffffff;
+  background: rgba(255, 255, 255, 0.25);
+  border-color: rgba(255, 255, 255, 0.4);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
 }
 
 /* 설문 질문 섹션 */
@@ -80,6 +213,52 @@
   width: 100%;
   max-width: 900px;
   margin: 0 auto;
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 3rem 2rem;
+  z-index: 1;
+}
+
+.survey-question-section .language-toggle {
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
+}
+
+.remu-container.has-question::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url('/Poster/BG-question.png');
+  background-size: 50% 100%;
+  background-position: left center;
+  background-repeat: repeat-x;
+  z-index: 0;
+  /* 경계 블러 처리 */
+  mask-image: 
+    linear-gradient(to right, 
+      transparent 0%, 
+      black 5%, 
+      black 45%, 
+      transparent 50%, 
+      black 55%, 
+      black 95%, 
+      transparent 100%);
+  -webkit-mask-image: 
+    linear-gradient(to right, 
+      transparent 0%, 
+      black 5%, 
+      black 45%, 
+      transparent 50%, 
+      black 55%, 
+      black 95%, 
+      transparent 100%);
 }
 
 .question-progress {
@@ -90,13 +269,26 @@
   letter-spacing: 0.05em;
 }
 
+.question-header {
+  margin-bottom: 3rem;
+}
+
 .question-title {
   font-size: 1.8rem;
   color: #ffffff;
-  margin-bottom: 3rem;
+  margin-bottom: 0.5rem;
   font-weight: 600;
   letter-spacing: 0.02em;
   font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+}
+
+.question-title-en {
+  font-size: 1.2rem;
+  color: #cccccc;
+  margin-bottom: 0;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  font-family: 'Outfit', 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
 }
 
 .word-cards-grid {
@@ -107,11 +299,13 @@
 }
 
 .word-card {
-  background: transparent;
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
   color: #ffffff;
-  border: 1px solid #333333;
+  border: 1px solid var(--glass-border);
   padding: 2rem;
-  border-radius: 0;
+  border-radius: 4px;
   cursor: pointer;
   transition: all 0.3s ease;
   text-align: center;
@@ -121,88 +315,116 @@
   font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
   min-height: 120px;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
+  gap: 0.5rem;
+  box-shadow: var(--glass-shadow);
+}
+
+.word-card-ko {
+  font-size: 1.1rem;
+  font-weight: 500;
+  font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+}
+
+.word-card-en {
+  font-size: 0.9rem;
+  font-weight: 400;
+  color: #cccccc;
+  font-family: 'Outfit', 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
 }
 
 .word-card:hover {
-  border-color: #ffffff;
-  background: #1a1a1a;
+  border-color: rgba(255, 255, 255, 0.4);
+  background: var(--glass-hover-bg);
   transform: translateY(-3px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
 }
 
 .word-card:active {
   transform: translateY(0);
 }
 
-.recommendation-section {
+.recommendation-card {
+  padding: 3rem 4rem;
+  max-width: 800px;
+  width: 90%;
   text-align: center;
-  padding: 2rem;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 2rem;
 }
 
-.chef-image-container {
-  width: 300px;
-  height: 300px;
-  margin: 0 auto 2rem;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  background: #000000;
+.recommendation-card .chef-video-container {
+  width: 100%;
+  max-width: 600px;
+  height: 600px;
+  margin: 2rem auto;
+  border: none;
+  background: transparent;
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
+  border-radius: 4px;
 }
 
-.chef-recommendation-image {
+.recommendation-card .chef-recommendation-video {
   width: 100%;
   height: 100%;
-  object-fit: contain;
+  object-fit: cover;
   object-position: center;
+  border-radius: 4px;
 }
 
-.recommendation-title {
-  font-family: var(--font-luxury);
+.recommendation-card-title {
+  font-family: var(--font-luxury) !important;
   font-size: 2.5rem;
   color: #ffffff;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
   font-weight: normal;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.05em;
+  text-align: center;
+  -webkit-text-stroke: 1px #ffffff;
 }
 
-.recommendation-message {
+.recommendation-chef-name {
+  font-size: 1.8rem;
+  color: #ffffff;
+  margin-bottom: 2rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  text-align: center;
+}
+
+.recommendation-card-message {
   font-size: 1.1rem;
-  color: #cccccc;
+  color: rgba(255, 255, 255, 0.9);
   margin-bottom: 3rem;
   line-height: 1.8;
-  max-width: 600px;
-  margin-left: auto;
-  margin-right: auto;
   font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
 }
 
-.continue-button {
-  background: #ffffff;
-  color: #000000;
-  border: 1px solid #ffffff;
-  padding: 1rem 3rem;
-  font-size: 1rem;
-  border-radius: 0;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  font-weight: 500;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+.recommendation-buttons {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
 }
 
-.continue-button:hover {
-  background: transparent;
-  color: #ffffff;
-  border-color: #ffffff;
+.recommendation-buttons {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.recommendation-buttons .glass-button {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.recommendation-buttons .glass-button span {
+  font-size: 1.2rem;
+  display: inline-block;
 }
 
 /* 반응형 디자인 */

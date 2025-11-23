@@ -28,14 +28,18 @@
 
 .zone-intro-image {
   flex: 1;
-  max-width: 500px;
-  min-width: 300px;
+  width: 50%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
 }
 
 .zone-intro-image img {
   width: 100%;
-  height: auto;
-  object-fit: contain;
+  height: 100%;
+  object-fit: cover;
   display: block;
 }
 
@@ -44,6 +48,7 @@
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
+  align-items: center;
 }
 
 .zone-intro-name {
@@ -53,6 +58,7 @@
   font-weight: normal;
   letter-spacing: 0.05em;
   margin: 0;
+  text-align: center;
 }
 
 .zone-intro-description {
@@ -60,6 +66,7 @@
   font-size: 1.1rem;
   line-height: 1.8;
   color: #cccccc;
+  text-align: center;
 }
 
 .zone-intro-description p {
@@ -74,8 +81,10 @@
   margin-top: 2rem;
   padding: 1.2rem 3rem;
   font-size: 1rem;
-  border: 1px solid #ffffff;
-  background: transparent;
+  border: 1px solid var(--glass-border);
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
   color: #ffffff;
   cursor: pointer;
   transition: all 0.3s ease;
@@ -83,12 +92,15 @@
   letter-spacing: 0.05em;
   text-transform: uppercase;
   font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
-  align-self: flex-start;
+  border-radius: 4px;
+  box-shadow: var(--glass-shadow);
 }
 
 .view-works-button:hover {
-  background: #ffffff;
-  color: #000000;
+  background: var(--glass-hover-bg);
+  border-color: rgba(255, 255, 255, 0.4);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
 }
 
 @media (max-width: 968px) {
@@ -98,8 +110,8 @@
   }
 
   .zone-intro-image {
-    max-width: 100%;
-    min-width: auto;
+    width: 100%;
+    height: 50vh;
   }
 
   .zone-intro-name {
@@ -117,11 +129,91 @@
   letter-spacing: 0.05em;
 }
 
+/* Zone 1 특별 스타일 */
+.zone-1-header {
+  text-align: center;
+  margin-bottom: 4rem;
+  padding: 3rem 0;
+  animation: fadeInUp 1s ease-out;
+}
+
+.zone-1-description {
+  max-width: 800px;
+  margin: 2rem auto 0;
+  font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  font-size: 1.2rem;
+  line-height: 2;
+  color: #cccccc;
+}
+
+.zone-1-description-line {
+  margin: 1rem 0;
+  opacity: 0;
+  animation: fadeInUp 0.8s ease-out forwards;
+}
+
+.zone-1-description-line:nth-child(1) {
+  animation-delay: 0.2s;
+}
+
+.zone-1-description-line:nth-child(2) {
+  animation-delay: 0.4s;
+}
+
+.zone-1-description-line:nth-child(3) {
+  animation-delay: 0.6s;
+}
+
+.zone-1-description-line:nth-child(4) {
+  animation-delay: 0.8s;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Zone 1 작품 슬라이더에 추가 인터랙션 */
+.zone-1-special .work-slide {
+  transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.zone-1-special .work-slide.swiper-slide-active {
+  transform: scale(1.15);
+  z-index: 10;
+}
+
+.zone-1-special .work-card-slider {
+  transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.zone-1-special .work-slide.swiper-slide-active .work-card-slider {
+  transform: scale(1.1);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+}
+
+.zone-1-special .work-info-slider {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.6s ease-out 0.3s;
+}
+
+.zone-1-special .work-slide.swiper-slide-active .work-info-slider {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 .zone-description {
   font-size: 1.1rem;
   color: #cccccc;
   text-align: center;
-  margin-bottom: 4rem;
+  margin-bottom: 2rem;
   font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
 }
 
@@ -135,7 +227,7 @@
 /* Expo Slider 스타일 */
 .works-slider-container {
   width: 100%;
-  padding: 4rem 0;
+  padding: 2rem 0;
   margin-bottom: 4rem;
   overflow: hidden;
 }
@@ -156,15 +248,19 @@
   width: 100%;
   max-width: 600px;
   background: transparent;
-  border: 1px solid #2a2a2a;
+  border: none;
   overflow: hidden;
   transition: all 0.5s ease;
   transform-origin: center;
 }
 
+/* Zone3 쉐프 작품 카드는 더 크게 */
+.zone-3 .work-card-slider:has(.work-media-slider:not(.tea-cocktail-vertical)) {
+  max-width: 1200px;
+}
+
 .work-slide.swiper-slide-active .work-card-slider {
   transform: scale(1.1);
-  border-color: #ffffff;
 }
 
 .work-media-slider {
@@ -176,6 +272,35 @@
   justify-content: center;
   overflow: hidden;
   position: relative;
+}
+
+/* Zone3 작품 기본 설정 */
+.zone-3 .work-media-slider {
+  aspect-ratio: 16 / 9;
+  height: auto;
+  min-height: 700px;
+}
+
+/* Zone3 티 칵테일은 9:16 비율 (세로) */
+.zone-3 .work-media-slider.tea-cocktail-vertical {
+  aspect-ratio: 9 / 16;
+  min-height: 700px;
+  max-width: 400px;
+}
+
+/* Zone3 쉐프 작품들(Zen, Remi, Lara)은 16:9 비율, 더 크게 */
+.zone-3 .work-media-slider:not(.tea-cocktail-vertical) {
+  aspect-ratio: 16 / 9;
+  min-height: 700px;
+  width: 100%;
+}
+
+.zone-3 .work-card-slider {
+  max-width: 1200px;
+}
+
+.zone-3 .work-slide.swiper-slide-active .work-card-slider {
+  transform: scale(1.15);
 }
 
 .work-media-slider img,
@@ -197,7 +322,7 @@
   background: transparent;
 }
 
-.work-info-slider .work-chef {
+.work-info-slider .work-name {
   font-size: 1.5rem;
   color: #ffffff;
   margin: 0 0 0.5rem 0;
@@ -206,11 +331,67 @@
   font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
 }
 
-.work-info-slider .work-name {
+.work-info-slider .work-chef {
   font-size: 1rem;
   color: #999999;
-  margin: 0;
+  margin: 0 0 1rem 0;
   font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+}
+
+.work-description {
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  text-align: left;
+}
+
+.work-description-text {
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: #cccccc;
+  margin: 0 0 1rem 0;
+  font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+}
+
+.work-artist {
+  font-size: 0.85rem;
+  color: #999999;
+  margin: 0.5rem 0;
+  font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+}
+
+.work-ingredients {
+  margin-top: 1rem;
+}
+
+.work-ingredients-title {
+  font-size: 0.85rem;
+  color: #ffffff;
+  margin: 0 0 0.5rem 0;
+  font-weight: 600;
+  font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+}
+
+.work-ingredients ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.work-ingredients li {
+  font-size: 0.8rem;
+  color: #999999;
+  margin: 0.3rem 0;
+  padding-left: 1rem;
+  position: relative;
+  font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+}
+
+.work-ingredients li::before {
+  content: '•';
+  position: absolute;
+  left: 0;
+  color: #666666;
 }
 
 @media (max-width: 768px) {
@@ -225,7 +406,7 @@
 
 .work-card {
   background: transparent;
-  border: 1px solid #2a2a2a;
+  border: none;
   padding: 0;
   text-align: center;
   transition: all 0.3s ease;
@@ -234,7 +415,6 @@
 }
 
 .work-card:hover {
-  border-color: #ffffff;
   transform: translateY(-5px);
 }
 
@@ -292,34 +472,39 @@
   flex: 1;
   padding: 1rem 2rem;
   font-size: 0.95rem;
-  border: 1px solid #333333;
-  border-radius: 0;
+  border: 1px solid var(--glass-border);
+  border-radius: 4px;
   cursor: pointer;
   transition: all 0.3s ease;
   font-weight: 500;
   letter-spacing: 0.05em;
   text-transform: uppercase;
   font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  box-shadow: var(--glass-shadow);
 }
 
 .nav-button.prev {
-  background: transparent;
+  background: var(--glass-bg);
   color: #ffffff;
-  border-color: #333333;
+  border-color: var(--glass-border);
 }
 
 .nav-button.prev:hover {
-  border-color: #ffffff;
-  background: #1a1a1a;
+  border-color: rgba(255, 255, 255, 0.4);
+  background: var(--glass-hover-bg);
+  transform: translateY(-2px);
 }
 
 .nav-button.next {
-  background: #ffffff;
+  background: rgba(255, 255, 255, 0.9);
   color: #000000;
-  border-color: #ffffff;
+  border-color: var(--glass-border);
 }
 
 .nav-button.next:hover {
-  background: transparent;
-  color: #ffffff;
+  background: rgba(255, 255, 255, 1);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
 }

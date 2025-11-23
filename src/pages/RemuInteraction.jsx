@@ -1,6 +1,9 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import HomeButton from '../components/HomeButton';
+import GlassOverlay from '../components/GlassOverlay';
+import GlassCard from '../components/GlassCard';
+import GlassButton from '../components/GlassButton';
 import './RemuInteraction.css';
 
 function RemuInteraction() {
@@ -9,33 +12,44 @@ function RemuInteraction() {
   const [answers, setAnswers] = useState([]);
   const [showRecommendation, setShowRecommendation] = useState(false);
   const [recommendedChef, setRecommendedChef] = useState(null);
+  const [language, setLanguage] = useState('ko'); // 'ko' or 'en'
 
-  // 5개의 설문 질문 (추후 내용 업데이트 예정)
+  // 5개의 설문 질문
   const questions = [
     {
       id: 1,
-      question: '질문 1',
-      options: ['옵션 1', '옵션 2', '옵션 3', '옵션 4']
+      question: '오늘 당신의 감정은 어떤 온도에 더 가까운가요?',
+      questionEn: 'What temperature is your emotion closest to today?',
+      options: ['차가움', '미지근함', '따뜻함', '뜨거움'],
+      optionsEn: ['Cold', 'Lukewarm', 'Warm', 'Hot']
     },
     {
       id: 2,
-      question: '질문 2',
-      options: ['옵션 1', '옵션 2', '옵션 3', '옵션 4']
+      question: '당신의 감정이 디저트라면, 어떤 질감일까요?',
+      questionEn: 'If your emotion were a dessert, what texture would it be?',
+      options: ['크리미한', '쫀득한', '바삭한', '촉촉한'],
+      optionsEn: ['Creamy', 'Chewy', 'Crispy', 'Moist']
     },
     {
       id: 3,
-      question: '질문 3',
-      options: ['옵션 1', '옵션 2', '옵션 3', '옵션 4']
+      question: '지금의 감정은 입안에서 얼마나 오래 남나요?',
+      questionEn: 'How long does your current emotion linger in your mouth?',
+      options: ['은은하게', '진하게', '빠르게 사라짐', '오래 남음'],
+      optionsEn: ['Subtly', 'Boldly', 'Quickly fades', 'Lingers long']
     },
     {
       id: 4,
-      question: '질문 4',
-      options: ['옵션 1', '옵션 2', '옵션 3', '옵션 4']
+      question: '당신의 감정은 향이라면 어떻게 퍼질까요?',
+      questionEn: 'If your emotion were a scent, how would it spread?',
+      options: ['천천히 스며듦', '한순간 확 퍼짐', '은은하게 머뭄', '맑고 가벼움'],
+      optionsEn: ['Slowly seeps in', 'Bursts instantly', 'Softly lingers', 'Clear and light']
     },
     {
       id: 5,
-      question: '질문 5',
-      options: ['옵션 1', '옵션 2', '옵션 3', '옵션 4']
+      question: '감정이 지나간 뒤, 어떤 여운이 남나요?',
+      questionEn: 'What aftertaste remains after the emotion passes?',
+      options: ['고요함', '따뜻함', '새로움', '공허함'],
+      optionsEn: ['Calm', 'Warmth', 'Freshness', 'Emptiness']
     }
   ];
 
@@ -78,66 +92,100 @@ function RemuInteraction() {
     navigate('/zone1');
   };
 
+  const handleRetry = () => {
+    setCurrentQuestion(0);
+    setAnswers([]);
+    setShowRecommendation(false);
+    setRecommendedChef(null);
+  };
+
   const chefs = {
     1: { 
-      name: '쉐프 1', 
+      name: 'Nara', 
       description: '클래식한 맛의 달인',
-      image: '/Poster/Chef1.png' // 쉐프 1 이미지 경로
+      image: '/Poster/Chef1.png',
+      video: '/works/chef/teaset-nara.mp4'
     },
     2: { 
-      name: '쉐프 2', 
+      name: 'Remi', 
       description: '모던한 창의성의 대가',
-      image: '/Poster/Chef2.png' // 쉐프 2 이미지 경로
+      image: '/Poster/Chef2.png',
+      video: '/works/chef/teaset-remi.mp4'
     },
     3: { 
-      name: '쉐프 3', 
+      name: 'Zen', 
       description: '감각적인 조화의 마법사',
-      image: '/Poster/Chef3.png' // 쉐프 3 이미지 경로
+      image: '/Poster/Chef3.png',
+      video: '/works/chef/teaset-zen.mp4'
     }
   };
 
   return (
-    <div className="remu-container">
+    <div className={`remu-container ${currentQuestion > 0 && !showRecommendation ? 'has-question' : ''}`}>
       <HomeButton />
       <div className="remu-content">
-        {!showRecommendation && (
+        {!showRecommendation && currentQuestion === 0 && (
           <div className="remu-character">
-            <img 
-              src="/Poster/Emotier_remuer.png" 
-              alt="레뮤아" 
+            <video 
+              src="/Poster/Emotier_remuer_loop.mp4" 
               className="remu-image"
-              onError={(e) => {
-                e.target.style.display = 'none';
-              }}
+              autoPlay
+              loop
+              muted
+              playsInline
+              controls={false}
             />
+            <div className="remu-text-overlay">
+              <button 
+                className="language-toggle"
+                onClick={() => setLanguage(language === 'ko' ? 'en' : 'ko')}
+              >
+                {language === 'ko' ? 'EN' : '한글'}
+              </button>
+              <h2 className="remu-greeting">
+                Hello!<br />I am Emotier Remua.
+              </h2>
+                    <p className="remu-message">
+                      {language === 'ko'
+                        ? <>전시를 시작하기 전에, 몇 가지<br />질문을 통해 당신에게 맞는 쉐프를 추천해드리겠습니다.</>
+                        : 'Before starting the exhibition, I will recommend a chef that suits you through a few questions.'}
+                    </p>
+              <button 
+                className="start-survey-button"
+                onClick={() => setCurrentQuestion(1)}
+              >
+                {language === 'ko' ? '시작하기' : 'Start'}
+              </button>
+            </div>
           </div>
         )}
         <div className="interaction-section">
           {!showRecommendation ? (
             <>
-              {currentQuestion === 0 && (
-                <>
-                  <h2 className="remu-greeting luxury-title">안녕하세요! 저는 레뮤아입니다.</h2>
-                  <p className="remu-message">
-                    전시를 시작하기 전에, 몇 가지 질문을 통해 당신에게 맞는 쉐프를 추천해드리겠습니다.
-                  </p>
-                  <button 
-                    className="start-survey-button"
-                    onClick={() => setCurrentQuestion(1)}
-                  >
-                    시작하기
-                  </button>
-                </>
-              )}
               
               {currentQuestion > 0 && currentQuestion <= questions.length && (
                 <div className="survey-question-section">
+                  <button 
+                    className="language-toggle"
+                    onClick={() => setLanguage(language === 'ko' ? 'en' : 'ko')}
+                  >
+                    {language === 'ko' ? 'EN' : '한글'}
+                  </button>
                   <div className="question-progress">
-                    질문 {currentQuestion} / {questions.length}
+                    {language === 'ko' ? '질문' : 'Question'} {currentQuestion} / {questions.length}
                   </div>
-                  <h3 className="question-title">
-                    {questions[currentQuestion - 1].question}
-                  </h3>
+                  <div className="question-header">
+                    <h3 className="question-title">
+                      {language === 'ko' 
+                        ? questions[currentQuestion - 1].question 
+                        : questions[currentQuestion - 1].questionEn}
+                    </h3>
+                    {language === 'ko' && questions[currentQuestion - 1].questionEn && (
+                      <p className="question-title-en">
+                        {questions[currentQuestion - 1].questionEn}
+                      </p>
+                    )}
+                  </div>
                   <div className="word-cards-grid">
                     {questions[currentQuestion - 1].options.map((option, index) => (
                       <button
@@ -145,7 +193,14 @@ function RemuInteraction() {
                         className="word-card"
                         onClick={() => handleOptionSelect(option)}
                       >
-                        {option}
+                        <span className="word-card-ko">
+                          {language === 'ko' ? option : questions[currentQuestion - 1].optionsEn[index]}
+                        </span>
+                        {language === 'ko' && questions[currentQuestion - 1].optionsEn && (
+                          <span className="word-card-en">
+                            {questions[currentQuestion - 1].optionsEn[index]}
+                          </span>
+                        )}
                       </button>
                     ))}
                   </div>
@@ -153,29 +208,36 @@ function RemuInteraction() {
               )}
             </>
           ) : (
-            <div className="recommendation-section">
-              <div className="chef-image-container">
-                <img 
-                  src={chefs[recommendedChef]?.image || '/Poster/Emotier_remuer.png'} 
-                  alt={chefs[recommendedChef]?.name}
-                  className="chef-recommendation-image"
-                  onError={(e) => {
-                    // 이미지가 없으면 레뮤아 이미지로 대체
-                    e.target.src = '/Poster/Emotier_remuer.png';
-                  }}
-                />
-              </div>
-              <h2 className="recommendation-title luxury-title">
-                {chefs[recommendedChef]?.name}의 디저트를 추천드립니다!
-              </h2>
-              <p className="recommendation-message">
-                전시장에서 {chefs[recommendedChef]?.name}의 작품을 
-                특히 주목해서 보시기 바랍니다. 멋진 경험이 될 것입니다!
-              </p>
-              <button className="continue-button" onClick={handleContinue}>
-                아일랜드로 이동하기
-              </button>
-            </div>
+            <GlassOverlay>
+              <GlassCard className="recommendation-card">
+                <h2 className="recommendation-card-title">Remua's Recommendation</h2>
+                <h3 className="recommendation-chef-name">Chef. {chefs[recommendedChef]?.name}</h3>
+                <div className="chef-video-container">
+                  <video 
+                    src={chefs[recommendedChef]?.video}
+                    className="chef-recommendation-video"
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
+                    controls={false}
+                  />
+                </div>
+                <p className="recommendation-card-message">
+                  {language === 'ko' 
+                    ? `${chefs[recommendedChef]?.name} 셰프의 특별한 디저트 컬렉션을 경험해보세요. 각 디저트는 고유한 의미와 스토리를 담고 있으며, 당신의 감정과 어울리는 완벽한 조화를 제공합니다.`
+                    : `Experience Chef ${chefs[recommendedChef]?.name}'s special dessert collection. Each dessert contains unique meanings and stories, providing a perfect harmony that matches your emotions.`}
+                </p>
+                <div className="recommendation-buttons">
+                  <GlassButton variant="primary" onClick={handleRetry}>
+                    <span>↻</span> {language === 'ko' ? '다시하기' : 'Retry'}
+                  </GlassButton>
+                  <GlassButton variant="secondary" onClick={handleContinue}>
+                    {language === 'ko' ? '아일랜드로 이동하기' : 'Go to Island'}
+                  </GlassButton>
+                </div>
+              </GlassCard>
+            </GlassOverlay>
           )}
         </div>
       </div>

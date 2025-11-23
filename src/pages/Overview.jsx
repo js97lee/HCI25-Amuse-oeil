@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Overview.css';
 
@@ -16,6 +16,23 @@ function Overview() {
     '/Poster/Amuse-oeil-sound-poster10-15.mp4',
     // 추가 포스터 파일들을 여기에 추가하세요
   ];
+
+  // 비디오 음량 설정 (음소거)
+  useEffect(() => {
+    // 메인 포스터 비디오
+    if (videoRef.current) {
+      videoRef.current.volume = 0;
+      videoRef.current.muted = true;
+    }
+    
+    // 배경 배너 비디오들
+    backgroundVideosRef.current.forEach(video => {
+      if (video) {
+        video.volume = 0;
+        video.muted = true;
+      }
+    });
+  }, []);
 
   const toggleMute = () => {
     const newMutedState = !isMuted;
@@ -112,11 +129,17 @@ function Overview() {
             <div key={index} className="poster-banner-item">
               {poster.endsWith('.mp4') ? (
                 <video 
-                  ref={el => backgroundVideosRef.current[index] = el}
+                  ref={el => {
+                    backgroundVideosRef.current[index] = el;
+                    if (el) {
+                      el.volume = 0;
+                      el.muted = true;
+                    }
+                  }}
                   src={poster}
                   autoPlay
                   loop
-                  muted={isMuted}
+                  muted={true}
                   playsInline
                   className="poster-banner-media"
                 />
@@ -140,11 +163,17 @@ function Overview() {
             {posterFiles[0] && (
               posterFiles[0].endsWith('.mp4') ? (
                 <video 
-                  ref={videoRef}
+                  ref={el => {
+                    videoRef.current = el;
+                    if (el) {
+                      el.volume = 0;
+                      el.muted = true;
+                    }
+                  }}
                   src={posterFiles[0]}
                   autoPlay
                   loop
-                  muted={isMuted}
+                  muted={true}
                   playsInline
                   className="intro-poster-media"
                 />

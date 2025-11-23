@@ -3,8 +3,11 @@
   top: 2rem;
   left: 2rem;
   z-index: 100;
-  background: rgba(0, 0, 0, 0.6);
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
   color: #ffffff;
   padding: 0.8rem 1.5rem;
   font-size: 0.9rem;
@@ -14,11 +17,12 @@
   letter-spacing: 0.05em;
   text-transform: uppercase;
   font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
-  border-radius: 0;
+  border-radius: 4px;
 }
 
 .home-button-fixed:hover {
-  background: rgba(255, 255, 255, 0.2);
-  border-color: #ffffff;
+  background: var(--glass-hover-bg);
+  border-color: rgba(255, 255, 255, 0.4);
+  transform: translateY(-2px);
 }
 

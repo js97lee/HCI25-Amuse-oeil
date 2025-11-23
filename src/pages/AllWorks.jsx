@@ -29,7 +29,7 @@ function AllWorks() {
     <div className="all-works-container">
       <HomeButton />
       <div className="all-works-content">
-        <h1 className="all-works-title luxury-title">작품 전체 보기</h1>
+        <h1 className="all-works-title luxury-title">View All Works</h1>
         <p className="all-works-description">
           전시된 모든 작품을 한눈에 감상해보세요.
         </p>

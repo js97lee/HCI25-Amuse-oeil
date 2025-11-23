@@ -40,6 +40,13 @@
   --color-gray-lighter: #999999;
   --color-border: #2a2a2a;
   
+  /* 글래스모피즘 변수 */
+  --glass-bg: rgba(255, 255, 255, 0.1);
+  --glass-border: rgba(255, 255, 255, 0.2);
+  --glass-blur: blur(20px);
+  --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  --glass-hover-bg: rgba(255, 255, 255, 0.15);
+  
   /* 기본 폰트 - 한글은 Pretendard */
   font-family: var(--font-korean);
   line-height: 1.6;
@@ -54,8 +61,19 @@
 }
 
 /* 한글 텍스트에 Pretendard 강제 적용 */
-body, p, span, div, button, input, textarea, select, label, h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-korean);
+body, p, span, div, button, input, textarea, select, label, a, li, td, th {
+  font-family: var(--font-korean) !important;
+}
+
+/* 모든 헤딩은 Outfit 폰트 */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Outfit', 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif !important;
+}
+
+/* luxury-title 클래스는 예외 (영문 타이틀용) */
+.luxury-title {
+  font-family: var(--font-luxury) !important;
+  -webkit-text-stroke: 1px #ffffff;
 }
 
 body {
