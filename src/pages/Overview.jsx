@@ -1,11 +1,11 @@
-import { useState, useRef, useEffect } from 'react';
+import { useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useApp } from '../contexts/AppContext';
 import './Overview.css';
 
 function Overview() {
   const navigate = useNavigate();
-  const [isMuted, setIsMuted] = useState(false);
-  const [language, setLanguage] = useState('ko'); // 'ko' or 'en'
+  const { language, isMuted, toggleLanguage } = useApp();
   const videoRef = useRef(null);
   const backgroundVideosRef = useRef([]);
   const touchStartX = useRef(0);
@@ -34,22 +34,20 @@ function Overview() {
     });
   }, []);
 
-  const toggleMute = () => {
-    const newMutedState = !isMuted;
-    setIsMuted(newMutedState);
-    
+  // 음소거 상태에 따라 비디오 음량 조절
+  useEffect(() => {
     // 메인 포스터 비디오
     if (videoRef.current) {
-      videoRef.current.muted = newMutedState;
+      videoRef.current.muted = isMuted;
     }
     
     // 배경 배너 비디오들
     backgroundVideosRef.current.forEach(video => {
       if (video) {
-        video.muted = newMutedState;
+        video.muted = isMuted;
       }
     });
-  };
+  }, [isMuted]);
 
   // 스와이프 감지
   const handleTouchStart = (e) => {
@@ -69,20 +67,19 @@ function Overview() {
     if (Math.abs(distance) > minSwipeDistance) {
       if (distance > 0) {
         // 왼쪽으로 스와이프 (영문으로)
-        setLanguage('en');
+        if (language === 'ko') {
+          toggleLanguage();
+        }
       } else {
         // 오른쪽으로 스와이프 (한글로)
-        setLanguage('ko');
+        if (language === 'en') {
+          toggleLanguage();
+        }
       }
     }
     
     touchStartX.current = 0;
     touchEndX.current = 0;
-  };
-
-  // 언어 전환 버튼
-  const toggleLanguage = () => {
-    setLanguage(language === 'ko' ? 'en' : 'ko');
   };
 
   // 한글 내용
@@ -117,10 +114,6 @@ function Overview() {
 
   return (
     <div className="overview-container">
-      {/* 음소거 버튼 */}
-      <button className="mute-button" onClick={toggleMute}>
-        {isMuted ? '🔇' : '🔊'}
-      </button>
 
       {/* 롤링 배너 배경 */}
       <div className="poster-banner-background">
@@ -192,11 +185,6 @@ function Overview() {
             onTouchMove={handleTouchMove}
             onTouchEnd={handleTouchEnd}
           >
-            {/* 언어 전환 버튼 */}
-            <button className="language-toggle" onClick={toggleLanguage}>
-              {language === 'ko' ? 'EN' : '한글'}
-            </button>
-
             <h1 className="exhibition-title luxury-title">AMUSE OEIL</h1>
             
             {language === 'ko' && (

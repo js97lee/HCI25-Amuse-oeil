@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import HomeButton from '../components/HomeButton';
+import { useApp } from '../contexts/AppContext';
 import GlassOverlay from '../components/GlassOverlay';
 import GlassCard from '../components/GlassCard';
 import GlassButton from '../components/GlassButton';
@@ -8,11 +8,11 @@ import './RemuInteraction.css';
 
 function RemuInteraction() {
   const navigate = useNavigate();
+  const { language } = useApp();
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [answers, setAnswers] = useState([]);
   const [showRecommendation, setShowRecommendation] = useState(false);
   const [recommendedChef, setRecommendedChef] = useState(null);
-  const [language, setLanguage] = useState('ko'); // 'ko' or 'en'
 
   // 5개의 설문 질문
   const questions = [
@@ -122,7 +122,6 @@ function RemuInteraction() {
 
   return (
     <div className={`remu-container ${currentQuestion > 0 && !showRecommendation ? 'has-question' : ''}`}>
-      <HomeButton />
       <div className="remu-content">
         {!showRecommendation && currentQuestion === 0 && (
           <div className="remu-character">
@@ -136,12 +135,6 @@ function RemuInteraction() {
               controls={false}
             />
             <div className="remu-text-overlay">
-              <button 
-                className="language-toggle"
-                onClick={() => setLanguage(language === 'ko' ? 'en' : 'ko')}
-              >
-                {language === 'ko' ? 'EN' : '한글'}
-              </button>
               <h2 className="remu-greeting">
                 Hello!<br />I am Emotier Remua.
               </h2>
@@ -165,12 +158,6 @@ function RemuInteraction() {
               
               {currentQuestion > 0 && currentQuestion <= questions.length && (
                 <div className="survey-question-section">
-                  <button 
-                    className="language-toggle"
-                    onClick={() => setLanguage(language === 'ko' ? 'en' : 'ko')}
-                  >
-                    {language === 'ko' ? 'EN' : '한글'}
-                  </button>
                   <div className="question-progress">
                     {language === 'ko' ? '질문' : 'Question'} {currentQuestion} / {questions.length}
                   </div>

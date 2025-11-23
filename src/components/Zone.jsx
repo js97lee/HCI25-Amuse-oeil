@@ -1,13 +1,13 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import HomeButton from './HomeButton';
 import { swiperConfig } from '../data/zoneData';
 import '../pages/Zone.css';
 
 function Zone({ zoneNumber, zoneInfo }) {
   const navigate = useNavigate();
   const [showWorks, setShowWorks] = useState(false);
+  const [selectedWork, setSelectedWork] = useState(null);
   const swiperRef = useRef(null);
 
   const handleMediaError = (e) => {
@@ -17,9 +17,19 @@ function Zone({ zoneNumber, zoneInfo }) {
     }
   };
 
+  // ESC 키로 모달 닫기
+  useEffect(() => {
+    const handleEscape = (e) => {
+      if (e.key === 'Escape' && selectedWork) {
+        setSelectedWork(null);
+      }
+    };
+    window.addEventListener('keydown', handleEscape);
+    return () => window.removeEventListener('keydown', handleEscape);
+  }, [selectedWork]);
+
   return (
     <div className={`zone-container ${zoneNumber === 3 ? 'zone-3' : ''}`}>
-      <HomeButton />
       <div className="zone-content">
         {/* Zone 설명 섹션 - 작품 보기 전에만 표시 */}
         {!showWorks && (
@@ -61,7 +71,11 @@ function Zone({ zoneNumber, zoneInfo }) {
               >
                 {zoneInfo.works.map((work, index) => (
                   <SwiperSlide key={index} className="work-slide">
-                    <div className="work-card-slider">
+                    <div 
+                      className="work-card-slider"
+                      onClick={() => setSelectedWork(work)}
+                      style={{ cursor: 'pointer' }}
+                    >
                       <div className={`work-media-slider ${zoneNumber === 3 && work.chef === 'Tea Cocktail' ? 'tea-cocktail-vertical' : ''}`} data-swiper-parallax="-200">
                         {work.type === 'video' ? (
                           <video 
@@ -86,21 +100,6 @@ function Zone({ zoneNumber, zoneInfo }) {
                       <div className="work-info-slider" data-swiper-parallax="-100">
                         <p className="work-name">{work.name}</p>
                         <h3 className="work-chef">{work.chef}</h3>
-                        {work.description && work.description.ko && (
-                          <div className="work-description">
-                            <p className="work-description-text">{work.description.ko}</p>
-                            {work.ingredients && work.ingredients.length > 0 && (
-                              <div className="work-ingredients">
-                                <p className="work-ingredients-title">재료:</p>
-                                <ul>
-                                  {work.ingredients.map((ingredient, idx) => (
-                                    <li key={idx}>{ingredient}</li>
-                                  ))}
-                                </ul>
-                              </div>
-                            )}
-                          </div>
-                        )}
                       </div>
                     </div>
                   </SwiperSlide>
@@ -124,6 +123,73 @@ function Zone({ zoneNumber, zoneInfo }) {
           </>
         )}
       </div>
+
+      {/* Zone 정보 푸터 */}
+      <div className="zone-footer">
+        <div className="zone-footer-number">
+          {String(zoneNumber).padStart(2, '0')}
+        </div>
+        <div className="zone-footer-title">
+          {zoneInfo.name}
+        </div>
+      </div>
+
+      {/* 작품 설명 팝업 모달 */}
+      {selectedWork && (
+        <div 
+          className="work-modal-overlay"
+          onClick={() => setSelectedWork(null)}
+        >
+          <div 
+            className="work-modal-content"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button 
+              className="work-modal-close"
+              onClick={() => setSelectedWork(null)}
+            >
+              ×
+            </button>
+            <div className="work-modal-media">
+              {selectedWork.type === 'video' ? (
+                <video 
+                  src={selectedWork.media}
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                />
+              ) : (
+                <img 
+                  src={selectedWork.media} 
+                  alt={selectedWork.name}
+                />
+              )}
+            </div>
+            <div className="work-modal-info">
+              <h2 className="work-modal-name">{selectedWork.name}</h2>
+              <h3 className="work-modal-chef">{selectedWork.chef}</h3>
+              {selectedWork.description && selectedWork.description.ko && (
+                <div className="work-modal-description">
+                  <p className="work-modal-description-text">
+                    {selectedWork.description.ko}
+                  </p>
+                  {selectedWork.ingredients && selectedWork.ingredients.length > 0 && (
+                    <div className="work-modal-ingredients">
+                      <p className="work-modal-ingredients-title">재료:</p>
+                      <ul>
+                        {selectedWork.ingredients.map((ingredient, idx) => (
+                          <li key={idx}>{ingredient}</li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

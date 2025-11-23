@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import HomeButton from '../components/HomeButton';
 import './Survey.css';
 
 function Survey() {
@@ -31,7 +30,6 @@ function Survey() {
   if (submitted) {
     return (
       <div className="survey-container">
-        <HomeButton />
         <div className="survey-content">
           <h1 className="thank-you-title luxury-title">Thank You!</h1>
           <p className="thank-you-message">
@@ -42,7 +40,7 @@ function Survey() {
             className="back-button"
             onClick={() => navigate('/all-works')}
           >
-            View All Works
+            All Works
           </button>
         </div>
       </div>
@@ -51,7 +49,6 @@ function Survey() {
 
   return (
     <div className="survey-container">
-      <HomeButton />
       <div className="survey-content">
         <h1 className="survey-title luxury-title">설문조사</h1>
         <p className="survey-intro">

@@ -15,7 +15,7 @@ export const zoneData = {
     works: [
       { 
         chef: 'Tea Cocktail', 
-        name: 'Ephemeral Delight (순간의 행복)', 
+        name: 'Ephemeral Delight', 
         media: '/works/zone1/Tea-1.mp4', 
         type: 'video',
         year: '2025/10',
@@ -317,5 +317,16 @@ export const swiperConfig = {
     768: { slidesPerView: 2, spaceBetween: 50 },
     1024: { slidesPerView: 2.5, spaceBetween: 60 },
   }
+};
+
+// Zone 3 전용 Swiper 설정 (Super Flow용 - slidesPerView: 1 필수)
+export const swiperConfigZone3 = {
+  modules: [Parallax],
+  effect: 'slide',
+  grabCursor: true,
+  centeredSlides: true,
+  slidesPerView: 1,
+  spaceBetween: 0,
+  parallax: true,
 };
 

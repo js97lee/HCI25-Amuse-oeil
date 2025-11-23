@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { useEffect, useRef } from 'react';
 import './App.css';
+import { AppProvider } from './contexts/AppContext';
 import Overview from './pages/Overview';
 import RemuInteraction from './pages/RemuInteraction';
 import Zone1 from './pages/Zone1';
@@ -10,6 +11,7 @@ import Zone4 from './pages/Zone4';
 import Closing from './pages/Closing';
 import Survey from './pages/Survey';
 import AllWorks from './pages/AllWorks';
+import GlobalMenu from './components/GlobalMenu';
 
 function AppContent() {
   const backgroundMusicRef = useRef(null);
@@ -42,6 +44,8 @@ function AppContent() {
         src="/Poster/Afternoon Whimsy (1).mp3"
         loop
       />
+      {/* 전역 메뉴 */}
+      <GlobalMenu />
       <Routes>
         <Route path="/" element={<Overview />} />
         <Route path="/remu-interaction" element={<RemuInteraction />} />
@@ -59,9 +63,11 @@ function AppContent() {
 
 function App() {
   return (
-    <Router>
-      <AppContent />
-    </Router>
+    <AppProvider>
+      <Router>
+        <AppContent />
+      </Router>
+    </AppProvider>
   );
 }
 
