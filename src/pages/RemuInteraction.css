@@ -1,5 +1,6 @@
 .remu-container {
   min-height: 100vh;
+  min-height: 100dvh;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -7,6 +8,9 @@
   padding: 0;
   position: relative;
   overflow: hidden;
+  width: 100%;
+  height: 100vh;
+  height: 100dvh;
 }
 
 /* 그리드 패턴 배경 제거 */
@@ -70,7 +74,7 @@
 }
 
 .remu-content {
-  max-width: 1400px;
+  max-width: 100%;
   width: 100%;
   background: transparent;
   display: flex;
@@ -80,19 +84,26 @@
   position: relative;
   z-index: 1;
   min-height: 100vh;
+  min-height: 100dvh;
   justify-content: center;
+  overflow: hidden;
 }
 
 .remu-character {
-  position: relative;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   width: 100%;
-  height: 100vh;
+  height: 100%;
   margin: 0;
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 1;
   flex-direction: column;
+  overflow: hidden;
 }
 
 /* 영상 테두리 흐림 효과 - 더 강하게 */
@@ -107,13 +118,16 @@
     radial-gradient(ellipse at center, transparent 30%, rgba(0, 0, 0, 0.3) 60%, rgba(0, 0, 0, 0.7) 85%, rgba(0, 0, 0, 0.95) 100%);
   z-index: 1;
   pointer-events: none;
+  width: 100%;
+  height: 100%;
 }
 
 .remu-image {
   position: absolute;
   top: 0;
-  left: 50%;
-  transform: translateX(-50%);
+  left: 0;
+  right: 0;
+  bottom: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -137,8 +151,13 @@
 }
 
 .remu-text-overlay {
-  position: relative;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -501,22 +520,576 @@
   display: inline-block;
 }
 
-/* 반응형 디자인 */
-@media (max-width: 768px) {
-  .word-cards-grid {
-    grid-template-columns: 1fr;
+/* 반응형 디자인 - 800px 기준 */
+@media (max-width: 800px) {
+  .remu-container {
+    padding: 0;
+    min-height: 100vh;
+    min-height: 100dvh;
   }
-  
+
+  .remu-content {
+    min-height: 100vh;
+    min-height: 100dvh;
+    padding-bottom: 100px;
+  }
+
+  .remu-character {
+    width: 100%;
+    height: 100vh;
+    height: 100dvh;
+    position: relative;
+    overflow: hidden;
+  }
+
   .remu-image {
-    width: 200px;
-    height: 200px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
   }
-  
+
+  .remu-text-overlay {
+    padding: 2rem 1.5rem;
+    padding-bottom: calc(2rem + 100px);
+    gap: 2rem;
+    height: 100%;
+    justify-content: center;
+  }
+
   .remu-greeting {
     font-size: 2rem;
+    line-height: 1.2;
+  }
+
+  .remu-message {
+    font-size: 0.95rem;
+    line-height: 1.7;
+  }
+
+  .start-survey-button {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    margin: 0;
+    border-radius: 0;
+    padding: 1.25rem calc(1.5rem + env(safe-area-inset-bottom));
+    z-index: 1000;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    border-left: none;
+    border-right: none;
+    border-bottom: none;
+    color: #000000;
+    font-weight: 600;
+    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.1);
+  }
+
+  .start-survey-button:hover {
+    background: rgba(255, 255, 255, 1);
+    transform: none;
+  }
+
+  .word-cards-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    padding: 0 1.5rem;
+    margin-bottom: 100px;
   }
   
   .question-title {
     font-size: 1.5rem;
   }
+
+  .word-card {
+    padding: 1.5rem;
+    font-size: 1rem;
+    min-height: 80px;
+  }
+
+  .recommendation-card {
+    padding: 2rem 1.5rem;
+    max-width: 95%;
+  }
+
+  .recommendation-card-title {
+    font-size: 1.75rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .recommendation-chef-name {
+    font-size: 1.25rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .recommendation-card-message {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+  }
+
+  .chef-recommendation-video {
+    width: 100%;
+    max-width: 350px;
+    height: auto;
+  }
+
+  .recommendation-card .chef-video-container {
+    max-width: 350px;
+    height: auto;
+    max-height: 45vh;
+  }
+
+  .survey-question-section {
+    min-height: 100vh;
+    min-height: 100dvh;
+    padding: 2rem 1.5rem;
+    padding-bottom: calc(2rem + 100px);
+    justify-content: flex-start;
+    padding-top: 4rem;
+  }
+
+  /* 모바일에서 추천 결과 전체 화면 */
+  .remu-container:has(.recommendation-card) {
+    padding: 0;
+    overflow: hidden;
+  }
+
+  .interaction-section {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    height: 100dvh;
+  }
+
+  .glass-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: transparent;
+    z-index: 100;
+    padding: 0;
+    display: flex;
+    align-items: stretch;
+    justify-content: stretch;
+  }
+
+  .recommendation-card {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    max-width: 100%;
+    background: transparent;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: stretch;
+    border: none;
+    box-shadow: none;
+  }
+
+  .recommendation-card-title {
+    position: absolute;
+    top: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 1.5rem;
+    z-index: 10;
+    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.8);
+  }
+
+  .recommendation-chef-name {
+    position: absolute;
+    top: 4.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 1.25rem;
+    z-index: 10;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
+  }
+
+  .recommendation-card .chef-video-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    max-width: 100%;
+    margin: 0;
+    border-radius: 0;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .recommendation-card .chef-recommendation-video {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: center;
+    border-radius: 0;
+  }
+
+  .recommendation-card-message {
+    position: absolute;
+    bottom: calc(100px + 1.5rem);
+    left: 1.5rem;
+    right: 1.5rem;
+    font-size: 0.95rem;
+    line-height: 1.7;
+    margin-bottom: 0;
+    padding: 1.5rem;
+    background: linear-gradient(
+      to top,
+      rgba(0, 0, 0, 0.85) 0%,
+      rgba(0, 0, 0, 0.7) 50%,
+      rgba(0, 0, 0, 0.4) 80%,
+      rgba(0, 0, 0, 0) 100%
+    );
+    border-radius: 0;
+    z-index: 10;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
+  }
+
+  .recommendation-buttons {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 1.25rem 1.5rem calc(1.25rem + env(safe-area-inset-bottom));
+    background: rgba(0, 0, 0, 0.95);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+    z-index: 1000;
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+  }
+
+  .recommendation-buttons .glass-button {
+    flex: 1;
+    max-width: 180px;
+    padding: 1rem 1.5rem;
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .remu-container {
+    padding: 0.5rem;
+  }
+
+  .remu-greeting {
+    font-size: 1.5rem;
+  }
+
+  .remu-character {
+    max-width: 250px;
+  }
+
+  .word-card {
+    padding: 0.8rem;
+    font-size: 0.85rem;
+  }
+
+  .question-title {
+    font-size: 1.2rem;
+  }
+
+  .recommendation-card {
+    padding: 1rem;
+  }
+
+  .recommendation-card-title {
+    font-size: 1.2rem;
+  }
+
+  .chef-recommendation-video {
+    max-width: 100%;
+    height: auto;
+    max-height: 50vh;
+  }
+
+  .recommendation-card .chef-video-container {
+    max-width: 100%;
+    height: auto;
+    max-height: 40vh;
+    margin: 1rem auto;
+  }
+
+  .recommendation-card .chef-recommendation-video {
+    max-width: 100%;
+    height: auto;
+    max-height: 40vh;
+  }
+
+  .remu-character {
+    max-width: 200px;
+  }
+
+  .remu-greeting {
+    font-size: 1.5rem;
+  }
+
+  .recommendation-card-title {
+    font-size: 1.2rem;
+  }
+
+  .recommendation-chef-name {
+    font-size: 1.2rem;
+  }
+
+  .recommendation-card-message {
+    font-size: 0.9rem;
+  }
+}
+
+/* mobile-mode 클래스가 있을 때 모바일 스타일 적용 */
+html.mobile-mode .remu-container {
+  padding: 0;
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+
+html.mobile-mode .remu-content {
+  min-height: 100vh;
+  min-height: 100dvh;
+  padding-bottom: 100px;
+}
+
+html.mobile-mode .remu-character {
+  width: 100%;
+  height: 100vh;
+  height: 100dvh;
+  position: relative;
+  overflow: hidden;
+}
+
+html.mobile-mode .remu-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+html.mobile-mode .remu-text-overlay {
+  padding: 2rem 1.5rem;
+  padding-bottom: calc(2rem + 100px);
+  gap: 2rem;
+  height: 100%;
+  justify-content: center;
+}
+
+html.mobile-mode .remu-greeting {
+  font-size: 2rem;
+  line-height: 1.2;
+}
+
+html.mobile-mode .remu-message {
+  font-size: 0.95rem;
+  line-height: 1.7;
+}
+
+html.mobile-mode .start-survey-button {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  margin: 0;
+  border-radius: 0;
+  padding: 1.25rem calc(1.5rem + env(safe-area-inset-bottom));
+  z-index: 1000;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  border-left: none;
+  border-right: none;
+  border-bottom: none;
+  color: #000000;
+  font-weight: 600;
+  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.1);
+}
+
+html.mobile-mode .start-survey-button:hover {
+  background: rgba(255, 255, 255, 1);
+  transform: none;
+}
+
+html.mobile-mode .word-cards-grid {
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  padding: 0 1.5rem;
+  margin-bottom: 100px;
+}
+
+html.mobile-mode .question-title {
+  font-size: 1.5rem;
+}
+
+html.mobile-mode .word-card {
+  padding: 1.5rem;
+  font-size: 1rem;
+  min-height: 80px;
+}
+
+html.mobile-mode .survey-question-section {
+  min-height: 100vh;
+  min-height: 100dvh;
+  padding: 2rem 1.5rem;
+  padding-bottom: calc(2rem + 100px);
+  justify-content: flex-start;
+  padding-top: 4rem;
+}
+
+html.mobile-mode .remu-container:has(.recommendation-card) {
+  padding: 0;
+  overflow: hidden;
+}
+
+html.mobile-mode .interaction-section {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  height: 100dvh;
+}
+
+html.mobile-mode .glass-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: transparent;
+  z-index: 100;
+  padding: 0;
+  display: flex;
+  align-items: stretch;
+  justify-content: stretch;
+}
+
+html.mobile-mode .recommendation-card {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  max-width: 100%;
+  background: transparent;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: stretch;
+  border: none;
+  box-shadow: none;
+}
+
+html.mobile-mode .recommendation-card-title {
+  position: absolute;
+  top: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 1.5rem;
+  z-index: 10;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.8);
+}
+
+html.mobile-mode .recommendation-chef-name {
+  position: absolute;
+  top: 4.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 1.25rem;
+  z-index: 10;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
+}
+
+html.mobile-mode .recommendation-card .chef-video-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  margin: 0;
+  border-radius: 0;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+html.mobile-mode .recommendation-card .chef-recommendation-video {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+  border-radius: 0;
+}
+
+html.mobile-mode .recommendation-card-message {
+  position: absolute;
+  bottom: calc(100px + 1.5rem);
+  left: 1.5rem;
+  right: 1.5rem;
+  font-size: 0.95rem;
+  line-height: 1.7;
+  margin-bottom: 0;
+  padding: 1.5rem;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.85) 0%,
+    rgba(0, 0, 0, 0.7) 50%,
+    rgba(0, 0, 0, 0.4) 80%,
+    rgba(0, 0, 0, 0) 100%
+  );
+  border-radius: 0;
+  z-index: 10;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
+}
+
+html.mobile-mode .recommendation-buttons {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 1.25rem 1.5rem calc(1.25rem + env(safe-area-inset-bottom));
+  background: rgba(0, 0, 0, 0.95);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+  z-index: 1000;
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+
+html.mobile-mode .recommendation-buttons .glass-button {
+  flex: 1;
+  max-width: 180px;
+  padding: 1rem 1.5rem;
+  font-size: 0.9rem;
 }

@@ -5,6 +5,7 @@ const AppContext = createContext();
 export function AppProvider({ children }) {
   const [language, setLanguage] = useState('ko'); // 'ko' or 'en'
   const [isMuted, setIsMuted] = useState(false);
+  const [isMobile, setIsMobile] = useState(false); // 모바일 모드
 
   // localStorage에서 언어 설정 불러오기
   useEffect(() => {
@@ -12,7 +13,22 @@ export function AppProvider({ children }) {
     if (savedLanguage) {
       setLanguage(savedLanguage);
     }
+    const savedMobileMode = localStorage.getItem('mobileMode');
+    if (savedMobileMode === 'true') {
+      setIsMobile(true);
+    }
   }, []);
+
+  // 모바일 모드 적용
+  useEffect(() => {
+    if (isMobile) {
+      document.documentElement.classList.add('mobile-mode');
+      document.body.classList.add('mobile-mode');
+    } else {
+      document.documentElement.classList.remove('mobile-mode');
+      document.body.classList.remove('mobile-mode');
+    }
+  }, [isMobile]);
 
   // 언어 변경 시 localStorage에 저장
   const toggleLanguage = () => {
@@ -25,8 +41,16 @@ export function AppProvider({ children }) {
     setIsMuted(prev => !prev);
   };
 
+  const toggleMobile = () => {
+    setIsMobile(prev => {
+      const newValue = !prev;
+      localStorage.setItem('mobileMode', newValue.toString());
+      return newValue;
+    });
+  };
+
   return (
-    <AppContext.Provider value={{ language, setLanguage, toggleLanguage, isMuted, toggleMute }}>
+    <AppContext.Provider value={{ language, setLanguage, toggleLanguage, isMuted, toggleMute, isMobile, toggleMobile }}>
       {children}
     </AppContext.Provider>
   );

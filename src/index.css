@@ -80,12 +80,14 @@ body {
   margin: 0;
   min-width: 320px;
   min-height: 100vh;
+  min-height: 100dvh;
   background-color: var(--color-black);
   color: var(--color-white);
 }
 
 #root {
   min-height: 100vh;
+  min-height: 100dvh;
   background-color: var(--color-black);
 }
 
@@ -94,4 +96,51 @@ body {
   font-family: var(--font-luxury);
   font-weight: normal;
   letter-spacing: 0.02em;
+}
+
+/* 반응형 브레이크포인트 */
+@media (max-width: 768px) {
+  :root {
+    font-size: 16px;
+  }
+  
+  body {
+    padding: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  :root {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 375px) {
+  :root {
+    font-size: 13px;
+  }
+}
+
+/* 터치 친화적인 버튼 크기 */
+@media (hover: none) and (pointer: coarse) {
+  button, a {
+    min-height: 44px;
+    min-width: 44px;
+  }
+}
+
+/* mobile-mode 클래스가 있을 때 모바일 뷰포트 강제 적용 */
+html.mobile-mode {
+  /* 모바일 모드 활성화 */
+}
+
+html.mobile-mode body {
+  max-width: 800px;
+  margin: 0 auto;
+  position: relative;
+}
+
+/* mobile-mode일 때 모든 모바일 미디어 쿼리 스타일 적용 */
+html.mobile-mode * {
+  /* 모바일 스타일이 적용되도록 함 */
 }

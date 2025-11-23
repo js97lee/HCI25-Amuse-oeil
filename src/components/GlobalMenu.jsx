@@ -7,7 +7,7 @@ function GlobalMenu() {
   const navigate = useNavigate();
   const location = useLocation();
   const [isOpen, setIsOpen] = useState(false);
-  const { language, toggleLanguage, isMuted, toggleMute } = useApp();
+  const { language, toggleLanguage, isMuted, toggleMute, isMobile, toggleMobile } = useApp();
 
   // ESC 키로 메뉴 닫기
   useEffect(() => {
@@ -49,13 +49,19 @@ function GlobalMenu() {
           (MENU)
         </button>
 
-        {/* 오른쪽: 언어 토글 및 음소거 버튼 */}
+        {/* 오른쪽: 언어 토글, 디바이스 변경 및 음소거 버튼 */}
         <div className="global-top-navigation-right">
           <button 
             className="global-language-toggle"
             onClick={toggleLanguage}
           >
             {language === 'ko' ? '(EN)' : '(KO)'}
+          </button>
+          <button 
+            className="global-device-toggle"
+            onClick={toggleMobile}
+          >
+            {isMobile ? '(PC)' : '(MOBILE)'}
           </button>
           <button 
             className="global-mute-button"

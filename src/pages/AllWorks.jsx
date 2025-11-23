@@ -1,4 +1,4 @@
-import { useRef, useEffect, useState } from 'react';
+import { useRef, useEffect, useState, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { zoneData } from '../data/zoneData';
 import './AllWorks.css';
@@ -9,21 +9,25 @@ function AllWorks() {
   const [centerIndex, setCenterIndex] = useState(null);
 
   // zoneData에서 모든 작품 데이터 가져오기
-  const allWorks = [];
-  for (let zoneNum = 1; zoneNum <= 4; zoneNum++) {
-    const zone = zoneData[zoneNum];
-    if (zone && zone.works) {
-      zone.works.forEach(work => {
-        allWorks.push({
-          zone: zoneNum,
-          chef: work.chef,
-          name: work.name,
-          media: work.media,
-          type: work.type
+  const allWorks = useMemo(() => {
+    const works = [];
+    for (let zoneNum = 1; zoneNum <= 4; zoneNum++) {
+      const zone = zoneData[zoneNum];
+      if (zone && zone.works) {
+        zone.works.forEach(work => {
+          works.push({
+            zone: zoneNum,
+            chef: work.chef,
+            name: work.name,
+            media: work.media,
+            type: work.type,
+            price: work.price || 900
+          });
         });
-      });
+      }
     }
-  }
+    return works;
+  }, []);
 
   // 중앙 아이템 감지
   useEffect(() => {
@@ -185,6 +189,7 @@ function AllWorks() {
                 <div className="all-works-gallery-info">
                   <div className="all-works-gallery-title">{work.name.toUpperCase()}</div>
                   <div className="all-works-gallery-meta">{work.chef}</div>
+                  <div className="all-works-gallery-price">${work.price}</div>
                 </div>
               </div>
             ))}
@@ -225,6 +230,7 @@ function AllWorks() {
                 <div className="all-works-gallery-info">
                   <div className="all-works-gallery-title">{work.name.toUpperCase()}</div>
                   <div className="all-works-gallery-meta">{work.chef}</div>
+                  <div className="all-works-gallery-price">${work.price}</div>
                 </div>
               </div>
             ))}

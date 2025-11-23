@@ -1,4 +1,4 @@
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useApp } from '../contexts/AppContext';
 import './Overview.css';
@@ -6,6 +6,7 @@ import './Overview.css';
 function Overview() {
   const navigate = useNavigate();
   const { language, isMuted, toggleLanguage } = useApp();
+  const [currentStep, setCurrentStep] = useState(0); // 0: 포스터만, 1: 설명과 시작
   const videoRef = useRef(null);
   const backgroundVideosRef = useRef([]);
   const touchStartX = useRef(0);
@@ -150,64 +151,113 @@ function Overview() {
       
       {/* 컨텐츠 오버레이 */}
       <div className="overview-content-overlay">
-        {/* 상단 포스터와 인트로 좌우 배치 */}
-        <div className="intro-header">
-          <div className="intro-poster">
-            {posterFiles[0] && (
-              posterFiles[0].endsWith('.mp4') ? (
-                <video 
-                  ref={el => {
-                    videoRef.current = el;
-                    if (el) {
-                      el.volume = 0;
-                      el.muted = true;
-                    }
-                  }}
-                  src={posterFiles[0]}
-                  autoPlay
-                  loop
-                  muted={true}
-                  playsInline
-                  className="intro-poster-media"
-                />
-              ) : (
-                <img 
-                  src={posterFiles[0]}
-                  alt="전시 포스터"
-                  className="intro-poster-media"
-                />
-              )
-            )}
-          </div>
-          <div 
-            className="intro-content"
-            onTouchStart={handleTouchStart}
-            onTouchMove={handleTouchMove}
-            onTouchEnd={handleTouchEnd}
-          >
-            <h1 className="exhibition-title luxury-title">AMUSE OEIL</h1>
-            
-            {language === 'ko' && (
-              <p className="exhibition-subtitle">{koreanContent.subtitle}</p>
-            )}
-            {language === 'en' && (
-              <p className="exhibition-subtitle">{englishContent.subtitle}</p>
-            )}
-            
-            <div className={`exhibition-description ${language === 'en' ? 'english' : 'korean'}`}>
-              {content.paragraphs.map((paragraph, index) => (
-                <p key={index}>{paragraph}</p>
-              ))}
+        {/* 스텝 0: 포스터만 보여주기 */}
+        {currentStep === 0 && (
+          <div className="intro-poster-step">
+            <div className="intro-poster">
+              {posterFiles[0] && (
+                posterFiles[0].endsWith('.mp4') ? (
+                  <video 
+                    ref={el => {
+                      videoRef.current = el;
+                      if (el) {
+                        el.volume = 0;
+                        el.muted = true;
+                      }
+                    }}
+                    src={posterFiles[0]}
+                    autoPlay
+                    loop
+                    muted={true}
+                    playsInline
+                    className="intro-poster-media"
+                    onClick={() => setCurrentStep(1)}
+                  />
+                ) : (
+                  <img 
+                    src={posterFiles[0]}
+                    alt="전시 포스터"
+                    className="intro-poster-media"
+                    onClick={() => setCurrentStep(1)}
+                  />
+                )
+              )}
             </div>
-            
             <button 
-              className="start-button"
-              onClick={() => navigate('/remu-interaction')}
+              className="next-step-button"
+              onClick={() => setCurrentStep(1)}
             >
-              {language === 'ko' ? '전시 시작하기' : 'Start Exhibition'}
+              {language === 'ko' ? '다음' : 'Next'} →
             </button>
           </div>
-        </div>
+        )}
+
+        {/* 스텝 1: 설명과 시작 버튼 */}
+        {currentStep === 1 && (
+          <div className="intro-header">
+            <div className="intro-poster">
+              {posterFiles[0] && (
+                posterFiles[0].endsWith('.mp4') ? (
+                  <video 
+                    ref={el => {
+                      videoRef.current = el;
+                      if (el) {
+                        el.volume = 0;
+                        el.muted = true;
+                      }
+                    }}
+                    src={posterFiles[0]}
+                    autoPlay
+                    loop
+                    muted={true}
+                    playsInline
+                    className="intro-poster-media"
+                  />
+                ) : (
+                  <img 
+                    src={posterFiles[0]}
+                    alt="전시 포스터"
+                    className="intro-poster-media"
+                  />
+                )
+              )}
+            </div>
+            <div 
+              className="intro-content"
+              onTouchStart={handleTouchStart}
+              onTouchMove={handleTouchMove}
+              onTouchEnd={handleTouchEnd}
+            >
+              <button 
+                className="back-step-button"
+                onClick={() => setCurrentStep(0)}
+              >
+                ← {language === 'ko' ? '이전' : 'Back'}
+              </button>
+              <h1 className="exhibition-title luxury-title">AMUSE OEIL</h1>
+              
+              {language === 'ko' && (
+                <p className="exhibition-subtitle">{koreanContent.subtitle}</p>
+              )}
+              {language === 'en' && (
+                <p className="exhibition-subtitle">{englishContent.subtitle}</p>
+              )}
+              
+              <div className={`exhibition-description ${language === 'en' ? 'english' : 'korean'}`}>
+                {content.paragraphs.map((paragraph, index) => (
+                  <p key={index}>{paragraph}</p>
+                ))}
+              </div>
+              
+              <button 
+                className="start-button"
+                onClick={() => navigate('/remu-interaction')}
+              >
+                {language === 'ko' ? '전시 시작하기' : 'Start Exhibition'}
+              </button>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

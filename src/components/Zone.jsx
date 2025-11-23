@@ -106,31 +106,35 @@ function Zone({ zoneNumber, zoneInfo }) {
                 ))}
               </Swiper>
             </div>
-            <div className="zone-navigation">
-              <button 
-                className="nav-button prev"
-                onClick={() => navigate(zoneInfo.prevPath)}
-              >
-                이전
-              </button>
-              <button 
-                className="nav-button next"
-                onClick={() => navigate(zoneInfo.nextPath)}
-              >
-                {zoneInfo.nextText || '다음 Zone으로'}
-              </button>
-            </div>
           </>
         )}
       </div>
 
-      {/* Zone 정보 푸터 */}
+      {/* Zone 정보 푸터 - 하단 고정 네비게이션 */}
       <div className="zone-footer">
-        <div className="zone-footer-number">
-          {String(zoneNumber).padStart(2, '0')}
+        <div className="zone-footer-left">
+          <div className="zone-footer-number">
+            {String(zoneNumber).padStart(2, '0')}
+          </div>
         </div>
         <div className="zone-footer-title">
-          {zoneInfo.name}
+          <button 
+            className="nav-button prev"
+            onClick={() => navigate(zoneInfo.prevPath)}
+            aria-label="이전 Zone"
+          >
+            <span className="nav-arrow-text">←</span>
+          </button>
+          <span className="zone-footer-title-text">{zoneInfo.name}</span>
+          <button 
+            className="nav-button next"
+            onClick={() => navigate(zoneInfo.nextPath)}
+            aria-label="다음 Zone"
+          >
+            <span className="nav-arrow-text">→</span>
+          </button>
+        </div>
+        <div className="zone-footer-right">
         </div>
       </div>
 

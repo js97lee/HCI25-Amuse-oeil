@@ -1,5 +1,6 @@
 .survey-container {
   min-height: 100vh;
+  min-height: 100dvh;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -157,4 +158,78 @@
 .back-button:hover {
   background: transparent;
   color: #ffffff;
+}
+
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+  .survey-container {
+    padding: 1.5rem 1rem;
+  }
+
+  .survey-content {
+    padding: 2rem 1.5rem;
+  }
+
+  .survey-title {
+    font-size: 2rem;
+  }
+
+  .survey-intro {
+    font-size: 0.9rem;
+    margin-bottom: 2rem;
+  }
+
+  .form-group label {
+    font-size: 0.9rem;
+  }
+
+  .form-group select,
+  .form-group textarea {
+    font-size: 0.9rem;
+    padding: 0.8rem;
+  }
+
+  .thank-you-title {
+    font-size: 2rem;
+  }
+
+  .thank-you-message {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .survey-container {
+    padding: 1rem 0.5rem;
+  }
+
+  .survey-content {
+    padding: 1.5rem 1rem;
+    border: none;
+  }
+
+  .survey-title {
+    font-size: 1.5rem;
+  }
+
+  .survey-intro {
+    font-size: 0.85rem;
+  }
+
+  .form-actions {
+    flex-direction: column;
+  }
+
+  .submit-button,
+  .cancel-button {
+    width: 100%;
+  }
+
+  .thank-you-title {
+    font-size: 1.5rem;
+  }
+
+  .thank-you-message {
+    font-size: 0.9rem;
+  }
 }

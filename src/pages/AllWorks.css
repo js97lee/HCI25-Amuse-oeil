@@ -168,6 +168,15 @@
   letter-spacing: 0.05em;
 }
 
+.all-works-gallery-price {
+  font-family: 'Outfit', 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  font-size: 0.9rem;
+  color: #ffffff;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  margin-top: 0.5rem;
+}
+
 /* 네비게이션 화살표 */
 .all-works-nav-arrows {
   display: flex;
@@ -289,12 +298,26 @@
   }
 }
 
-@media (max-width: 768px) {
+/* 모바일 반응형 - 800px 기준 */
+@media (max-width: 800px) {
+  .all-works-container {
+    min-height: 100vh;
+    min-height: 100dvh;
+  }
+
   .all-works-header {
-    padding: 1.5rem 1.5rem;
-    flex-direction: column;
-    align-items: flex-start;
+    padding: 1.5rem;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
     gap: 1rem;
+    position: sticky;
+    top: 0;
+    background: rgba(0, 0, 0, 0.9);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    z-index: 100;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   }
 
   .all-works-header-right {
@@ -307,17 +330,57 @@
 
   .all-works-nav-link,
   .all-works-close {
-    font-size: 0.8rem;
-    padding: 0.4rem 0.8rem;
+    font-size: 0.85rem;
+    padding: 0.5rem 0.75rem;
+  }
+
+  .all-works-gallery-wrapper {
+    padding: 0;
   }
 
   .all-works-gallery-track {
     padding: 0 1.5rem;
-    gap: 1rem;
+    gap: 1.5rem;
   }
 
   .all-works-gallery-item {
-    width: 300px;
+    width: calc(100vw - 3rem);
+    max-width: 100%;
+    height: auto;
+    aspect-ratio: 3 / 4;
+    flex-shrink: 0;
+  }
+
+  .all-works-gallery-item.center {
+    width: calc(100vw - 3rem);
+    max-width: 100%;
+  }
+
+  .all-works-gallery-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 0;
+  }
+
+  .all-works-gallery-info {
+    padding: 1rem 0;
+    text-align: left;
+  }
+
+  .all-works-gallery-title {
+    font-size: 0.95rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .all-works-gallery-meta {
+    font-size: 0.8rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .all-works-gallery-price {
+    font-size: 0.95rem;
+    margin-top: 0.5rem;
   }
 
   .all-works-nav-arrows {
@@ -325,7 +388,14 @@
   }
 
   .all-works-footer {
-    padding: 1.5rem 1.5rem;
+    padding: 1.5rem;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
   }
 
   .all-works-footer-number {
@@ -335,4 +405,175 @@
   .all-works-footer-text {
     font-size: 2rem;
   }
+}
+
+@media (max-width: 480px) {
+  .all-works-header {
+    padding: 1rem;
+  }
+
+  .all-works-title {
+    font-size: 0.9rem;
+  }
+
+  .all-works-nav-link,
+  .all-works-close {
+    font-size: 0.75rem;
+    padding: 0.3rem 0.6rem;
+  }
+
+  .all-works-gallery-track {
+    padding: 0 1rem;
+    gap: 0.8rem;
+  }
+
+  .all-works-gallery-item {
+    width: 200px;
+    height: 280px;
+  }
+
+  .all-works-gallery-image {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1;
+    flex: 1;
+  }
+
+  .all-works-gallery-item img,
+  .all-works-gallery-item video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .all-works-container {
+    min-height: 100vh;
+    min-height: 100dvh;
+  }
+
+  .all-works-gallery-price {
+    font-size: 0.9rem;
+  }
+
+  .all-works-footer {
+    padding: 1rem;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .all-works-footer-number {
+    font-size: 2rem;
+  }
+
+  .all-works-footer-text {
+    font-size: 1.5rem;
+  }
+}
+
+/* mobile-mode 클래스가 있을 때 모바일 스타일 적용 */
+html.mobile-mode .all-works-container {
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+
+html.mobile-mode .all-works-header {
+  padding: 1.5rem;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  position: sticky;
+  top: 0;
+  background: rgba(0, 0, 0, 0.9);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  z-index: 100;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+html.mobile-mode .all-works-header-right {
+  gap: 1rem;
+}
+
+html.mobile-mode .all-works-title {
+  font-size: 1rem;
+}
+
+html.mobile-mode .all-works-nav-link,
+html.mobile-mode .all-works-close {
+  font-size: 0.85rem;
+  padding: 0.5rem 0.75rem;
+}
+
+html.mobile-mode .all-works-gallery-wrapper {
+  padding: 0;
+}
+
+html.mobile-mode .all-works-gallery-track {
+  padding: 0 1.5rem;
+  gap: 1.5rem;
+}
+
+html.mobile-mode .all-works-gallery-item {
+  width: calc(100vw - 3rem);
+  max-width: 100%;
+  height: auto;
+  aspect-ratio: 3 / 4;
+  flex-shrink: 0;
+}
+
+html.mobile-mode .all-works-gallery-item.center {
+  width: calc(100vw - 3rem);
+  max-width: 100%;
+}
+
+html.mobile-mode .all-works-gallery-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 0;
+}
+
+html.mobile-mode .all-works-gallery-info {
+  padding: 1rem 0;
+  text-align: left;
+}
+
+html.mobile-mode .all-works-gallery-title {
+  font-size: 0.95rem;
+  margin-bottom: 0.5rem;
+}
+
+html.mobile-mode .all-works-gallery-meta {
+  font-size: 0.8rem;
+  margin-bottom: 0.5rem;
+}
+
+html.mobile-mode .all-works-gallery-price {
+  font-size: 0.95rem;
+  margin-top: 0.5rem;
+}
+
+html.mobile-mode .all-works-nav-arrows {
+  display: none;
+}
+
+html.mobile-mode .all-works-footer {
+  padding: 1.5rem;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+html.mobile-mode .all-works-footer-number {
+  font-size: 2.5rem;
+}
+
+html.mobile-mode .all-works-footer-text {
+  font-size: 2rem;
 }
