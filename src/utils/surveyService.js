@@ -42,8 +42,11 @@ export async function saveSurveyToSheets(surveyData) {
     };
 
     // Google Apps Script 웹훅으로 POST 요청
+    // mode: 'no-cors'는 사용하지 않음 (응답을 읽을 수 없음)
+    // Google Apps Script는 기본적으로 CORS를 허용해야 함
     const response = await fetch(GOOGLE_SHEETS_WEBHOOK_URL, {
       method: 'POST',
+      mode: 'cors', // 명시적으로 CORS 모드 지정
       headers: {
         'Content-Type': 'application/json',
       },
