@@ -96,6 +96,8 @@ function doPost(e) {
     // 타임스탬프
     const timestamp = new Date();
     
+    Logger.log('Saving data to sheet: ' + sheetName);
+    
     // 설문 유형에 따라 다른 데이터 형식으로 저장
     if (isExhibitionSurvey) {
       // 전시 설문조사 데이터
