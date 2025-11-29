@@ -772,22 +772,28 @@
   .recommendation-card-message {
     position: absolute;
     bottom: calc(100px + 1.5rem);
-    left: 1.5rem;
-    right: 1.5rem;
-    font-size: 0.95rem;
-    line-height: 1.7;
+    left: 0;
+    right: 0;
+    width: 100%;
+    font-size: 0.9rem;
+    line-height: 1.6;
     margin-bottom: 0;
-    padding: 1.5rem;
+    padding: 1.25rem 1.5rem;
     background: linear-gradient(
       to top,
-      rgba(0, 0, 0, 0.85) 0%,
-      rgba(0, 0, 0, 0.7) 50%,
-      rgba(0, 0, 0, 0.4) 80%,
+      rgba(0, 0, 0, 0.9) 0%,
+      rgba(0, 0, 0, 0.75) 50%,
+      rgba(0, 0, 0, 0.5) 80%,
       rgba(0, 0, 0, 0) 100%
     );
     border-radius: 0;
     z-index: 10;
-    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.9);
+    box-sizing: border-box;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    overflow: hidden;
+    max-width: 100%;
   }
 
   .recommendation-buttons {
@@ -1143,12 +1149,13 @@ html.mobile-mode .recommendation-card .chef-recommendation-video {
 html.mobile-mode .recommendation-card-message {
   position: absolute;
   bottom: calc(120px + 1.5rem);
-  left: 1.5rem;
-  right: 1.5rem;
-  font-size: 0.9rem;
-  line-height: 1.6;
+  left: 0;
+  right: 0;
+  width: 100%;
+  font-size: 0.85rem;
+  line-height: 1.5;
   margin-bottom: 0;
-  padding: 1.25rem;
+  padding: 1rem 1.5rem;
   background: linear-gradient(
     to top,
     rgba(0, 0, 0, 0.9) 0%,
@@ -1159,11 +1166,11 @@ html.mobile-mode .recommendation-card-message {
   border-radius: 0;
   z-index: 10;
   text-shadow: 0 2px 8px rgba(0, 0, 0, 0.9);
-  max-width: calc(100% - 3rem);
   box-sizing: border-box;
   word-wrap: break-word;
   overflow-wrap: break-word;
   overflow: hidden;
+  max-width: 100%;
 }
 
 html.mobile-mode .recommendation-buttons {

@@ -1,9 +1,12 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useApp } from '../contexts/AppContext';
+import { saveSurveyToSheets, backupSurveyToLocalStorage } from '../utils/surveyService';
 import './Survey.css';
 
 function Survey() {
   const navigate = useNavigate();
+  const { language } = useApp();
   const [formData, setFormData] = useState({
     satisfaction: '',
     favoriteChef: '',
@@ -20,10 +23,31 @@ function Survey() {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // 여기에 실제 설문조사 제출 로직을 추가할 수 있습니다
-    console.log('Survey submitted:', formData);
+    
+    // 설문조사 데이터 준비
+    const surveyData = {
+      language: language || 'ko',
+      satisfaction: formData.satisfaction,
+      favoriteChef: formData.favoriteChef,
+      favoriteZone: formData.favoriteZone,
+      comments: formData.comments,
+      surveyType: 'exhibition' // 전시 설문조사임을 표시
+    };
+
+    // Google Sheets에 저장 시도
+    const saveResult = await saveSurveyToSheets(surveyData);
+    
+    // 실패해도 로컬 스토리지에 백업
+    backupSurveyToLocalStorage(surveyData);
+    
+    if (saveResult.success) {
+      console.log('Survey data saved to Google Sheets successfully');
+    } else {
+      console.warn('Failed to save to Google Sheets, but backed up locally:', saveResult.error);
+    }
+    
     setSubmitted(true);
   };
 

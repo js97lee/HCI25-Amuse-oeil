@@ -136,7 +136,13 @@ function AllWorks() {
       {/* 상단 헤더 */}
       <div className="all-works-header">
         <div className="all-works-header-left">
-          <h1 className="all-works-title">AMUSE OEIL</h1>
+          <button 
+            className="all-works-title" 
+            onClick={() => navigate('/')}
+            aria-label="Home"
+          >
+            AMUSE OEIL
+          </button>
         </div>
         <div className="all-works-header-right">
           <button className="all-works-nav-link" onClick={() => navigate('/')}>

@@ -11,61 +11,97 @@
  */
 
 // 스프레드시트 ID를 여기에 입력하세요
-const SPREADSHEET_ID = 'YOUR_SPREADSHEET_ID_HERE';
+const SPREADSHEET_ID = '1gnfF0vkAmZ7Ja1Hu1qQ6s7FT9zN_N4MP6T9pDVJ3XrM';
 
 // 시트 이름
 const SHEET_NAME = 'Survey Responses';
+const EXHIBITION_SHEET_NAME = 'Exhibition Survey Responses';
 
 function doPost(e) {
   try {
     // 스프레드시트 열기
     const ss = SpreadsheetApp.openById(SPREADSHEET_ID);
-    let sheet = ss.getSheetByName(SHEET_NAME);
+    
+    // POST 데이터 파싱
+    const data = JSON.parse(e.postData.contents);
+    
+    // 설문 유형에 따라 다른 시트 사용
+    const isExhibitionSurvey = data.surveyType === 'exhibition';
+    const sheetName = isExhibitionSurvey ? EXHIBITION_SHEET_NAME : SHEET_NAME;
+    let sheet = ss.getSheetByName(sheetName);
     
     // 시트가 없으면 생성
     if (!sheet) {
-      sheet = ss.insertSheet(SHEET_NAME);
-      // 헤더 추가
-      sheet.appendRow([
-        'Timestamp',
-        'Language',
-        'Question 1',
-        'Question 2',
-        'Question 3',
-        'Question 4',
-        'Question 5',
-        'Recommended Chef',
-        'Chef Name',
-        'User Agent',
-        'IP Address'
-      ]);
+      sheet = ss.insertSheet(sheetName);
+      
+      if (isExhibitionSurvey) {
+        // 전시 설문조사 헤더
+        sheet.appendRow([
+          'Timestamp',
+          'Language',
+          'Satisfaction',
+          'Favorite Chef',
+          'Favorite Zone',
+          'Comments',
+          'User Agent',
+          'IP Address'
+        ]);
+      } else {
+        // Remu Interaction 설문조사 헤더
+        sheet.appendRow([
+          'Timestamp',
+          'Language',
+          'Question 1',
+          'Question 2',
+          'Question 3',
+          'Question 4',
+          'Question 5',
+          'Recommended Chef',
+          'Chef Name',
+          'User Agent',
+          'IP Address'
+        ]);
+      }
+      
       // 헤더 스타일링
-      const headerRange = sheet.getRange(1, 1, 1, 11);
+      const headerRange = sheet.getRange(1, 1, 1, sheet.getLastColumn());
       headerRange.setFontWeight('bold');
       headerRange.setBackground('#4285f4');
       headerRange.setFontColor('#ffffff');
     }
     
-    // POST 데이터 파싱
-    const data = JSON.parse(e.postData.contents);
-    
     // 타임스탬프
     const timestamp = new Date();
     
-    // 데이터 행 추가
-    sheet.appendRow([
-      timestamp,
-      data.language || 'ko',
-      data.answers[0] || '',
-      data.answers[1] || '',
-      data.answers[2] || '',
-      data.answers[3] || '',
-      data.answers[4] || '',
-      data.recommendedChef || '',
-      data.chefName || '',
-      data.userAgent || '',
-      data.ipAddress || ''
-    ]);
+    // 설문 유형에 따라 다른 데이터 형식으로 저장
+    if (isExhibitionSurvey) {
+      // 전시 설문조사 데이터
+      sheet.appendRow([
+        timestamp,
+        data.language || 'ko',
+        data.satisfaction || '',
+        data.favoriteChef || '',
+        data.favoriteZone || '',
+        data.comments || '',
+        data.userAgent || '',
+        data.ipAddress || ''
+      ]);
+    } else {
+      // Remu Interaction 설문조사 데이터
+      sheet.appendRow([
+        timestamp,
+        data.language || 'ko',
+        data.answers[0] || '',
+        data.answers[1] || '',
+        data.answers[2] || '',
+        data.answers[3] || '',
+        data.answers[4] || '',
+        data.recommendedChef || '',
+        data.chefName || '',
+        data.userAgent || '',
+        data.ipAddress || ''
+      ]);
+    }
     
     // 성공 응답
     return ContentService.createTextOutput(

@@ -37,6 +37,16 @@
   font-weight: 400;
   letter-spacing: 0.1em;
   text-transform: uppercase;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 0;
+  text-align: left;
+}
+
+.all-works-title:hover {
+  color: rgba(255, 255, 255, 0.7);
 }
 
 .all-works-nav-link {
@@ -107,7 +117,7 @@
 .all-works-gallery-track {
   display: flex;
   align-items: center;
-  gap: 6rem;
+  gap: 40px;
   padding: 0 5rem;
   width: fit-content;
   height: 100%;
