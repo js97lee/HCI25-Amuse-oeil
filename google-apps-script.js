@@ -41,13 +41,20 @@ function doPost(e) {
     // POST 데이터 파싱
     const data = JSON.parse(e.postData.contents);
     
+    // 디버깅: 로그에 데이터 출력
+    Logger.log('Received data: ' + JSON.stringify(data));
+    Logger.log('Survey type: ' + (data.surveyType || 'not set'));
+    
     // 설문 유형에 따라 다른 시트 사용
     const isExhibitionSurvey = data.surveyType === 'exhibition';
     const sheetName = isExhibitionSurvey ? EXHIBITION_SHEET_NAME : SHEET_NAME;
+    Logger.log('Sheet name: ' + sheetName);
+    
     let sheet = ss.getSheetByName(sheetName);
     
     // 시트가 없으면 생성
     if (!sheet) {
+      Logger.log('Creating new sheet: ' + sheetName);
       sheet = ss.insertSheet(sheetName);
       
       if (isExhibitionSurvey) {
@@ -88,6 +95,8 @@ function doPost(e) {
     
     // 타임스탬프
     const timestamp = new Date();
+    
+    Logger.log('Saving data to sheet: ' + sheetName);
     
     // 설문 유형에 따라 다른 데이터 형식으로 저장
     if (isExhibitionSurvey) {
