@@ -17,12 +17,19 @@ const GOOGLE_SHEETS_WEBHOOK_URL = import.meta.env.VITE_GOOGLE_SHEETS_WEBHOOK_URL
 export async function saveSurveyToSheets(surveyData) {
   // 웹훅 URL이 설정되지 않았으면 에러
   if (!GOOGLE_SHEETS_WEBHOOK_URL) {
-    console.warn('Google Sheets webhook URL is not configured. Survey data will not be saved.');
+    console.warn('⚠️ Google Sheets webhook URL is not configured.');
+    console.warn('📝 Please set VITE_GOOGLE_SHEETS_WEBHOOK_URL in Netlify environment variables.');
+    console.warn('📋 Current environment:', import.meta.env.MODE);
     return {
       success: false,
       error: 'Webhook URL not configured'
     };
   }
+  
+  console.log('📤 Sending survey data to Google Sheets...', {
+    url: GOOGLE_SHEETS_WEBHOOK_URL.substring(0, 50) + '...',
+    data: surveyData
+  });
 
   try {
     // 추가 메타데이터 수집
@@ -50,17 +57,23 @@ export async function saveSurveyToSheets(surveyData) {
     const result = await response.json();
     
     if (result.success) {
-      console.log('Survey data saved successfully:', result);
+      console.log('✅ Survey data saved successfully to Google Sheets!', result);
       return {
         success: true,
         message: result.message,
         timestamp: result.timestamp
       };
     } else {
+      console.error('❌ Google Sheets returned an error:', result);
       throw new Error(result.error || 'Unknown error');
     }
   } catch (error) {
-    console.error('Error saving survey data to Google Sheets:', error);
+    console.error('❌ Error saving survey data to Google Sheets:', error);
+    console.error('🔍 Error details:', {
+      message: error.message,
+      stack: error.stack,
+      url: GOOGLE_SHEETS_WEBHOOK_URL
+    });
     return {
       success: false,
       error: error.message
