@@ -96,8 +96,6 @@ function doPost(e) {
     // 타임스탬프
     const timestamp = new Date();
     
-    Logger.log('Saving data to sheet: ' + sheetName);
-    
     // 설문 유형에 따라 다른 데이터 형식으로 저장
     if (isExhibitionSurvey) {
       // 전시 설문조사 데이터
@@ -148,7 +146,7 @@ function doPost(e) {
   }
 }
 
-// 테스트 함수 (선택사항)
+// 테스트 함수 - Remu Interaction 설문조사
 function testDoPost() {
   const mockEvent = {
     postData: {
@@ -162,6 +160,25 @@ function testDoPost() {
   };
   
   const result = doPost(mockEvent);
-  Logger.log(result.getContent());
+  Logger.log('Remu Interaction Test Result:', result.getContent());
+}
+
+// 테스트 함수 - 전시 설문조사
+function testExhibitionSurvey() {
+  const mockEvent = {
+    postData: {
+      contents: JSON.stringify({
+        language: 'ko',
+        satisfaction: 'very-satisfied',
+        favoriteChef: 'zen',
+        favoriteZone: 'zone1',
+        comments: '테스트 댓글입니다.',
+        surveyType: 'exhibition'
+      })
+    }
+  };
+  
+  const result = doPost(mockEvent);
+  Logger.log('Exhibition Survey Test Result:', result.getContent());
 }
 
