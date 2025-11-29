@@ -17,6 +17,17 @@ const SPREADSHEET_ID = '1gnfF0vkAmZ7Ja1Hu1qQ6s7FT9zN_N4MP6T9pDVJ3XrM';
 const SHEET_NAME = 'Survey Responses';
 const EXHIBITION_SHEET_NAME = 'Exhibition Survey Responses';
 
+// GET 요청 처리 (테스트용)
+function doGet(e) {
+  return ContentService.createTextOutput(
+    JSON.stringify({
+      success: true,
+      message: 'Google Apps Script is running',
+      timestamp: new Date().toISOString()
+    })
+  ).setMimeType(ContentService.MimeType.JSON);
+}
+
 // OPTIONS 요청 처리 (CORS preflight)
 function doOptions() {
   return HtmlService.createHtmlOutput('');
