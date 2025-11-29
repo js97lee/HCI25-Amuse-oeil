@@ -355,20 +355,30 @@
   }
 }
 
-/* 모바일 반응형 - 800px 기준 */
+/* 모바일 반응형 - 800px 기준 (H820 뷰포트) */
 @media (max-width: 800px) {
   .overview-container {
     padding: 0;
+    min-height: 100vh;
+    min-height: 100dvh;
+    height: 100vh;
+    height: 100dvh;
   }
 
   .overview-content-overlay {
     padding: 0;
     background: linear-gradient(
       to bottom,
-      rgba(0, 0, 0, 0.9) 0%,
-      rgba(0, 0, 0, 0.85) 50%,
-      rgba(0, 0, 0, 0.9) 100%
+      rgba(0, 0, 0, 0.95) 0%,
+      rgba(0, 0, 0, 0.9) 50%,
+      rgba(0, 0, 0, 0.95) 100%
     );
+    min-height: 100vh;
+    min-height: 100dvh;
+    height: 100vh;
+    height: 100dvh;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
   }
 
   .intro-header {
@@ -376,53 +386,69 @@
     gap: 0;
     max-width: 100%;
     padding: 0;
+    min-height: 100vh;
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
   }
 
   .intro-poster {
-    height: 50vh;
-    min-height: 400px;
+    height: 45vh;
+    min-height: 320px;
+    max-height: 45vh;
     max-width: 100%;
     width: 100%;
     border-radius: 0;
+    flex-shrink: 0;
   }
 
   .intro-poster-media {
     border-radius: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
   }
   
   .intro-content {
-    padding: 2rem 1.5rem;
-    padding-bottom: calc(2rem + 100px);
+    padding: 1.5rem;
+    padding-top: 1.5rem;
+    padding-bottom: calc(1.5rem + 80px);
     text-align: left;
+    flex: 1;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
   }
   
   .exhibition-title {
-    font-size: 2.5rem;
-    margin-bottom: 1rem;
+    font-size: 2rem;
+    margin-bottom: 0.75rem;
     text-align: left;
+    line-height: 1.2;
   }
   
   .exhibition-subtitle {
-    font-size: 1rem;
-    margin-bottom: 1.5rem;
+    font-size: 0.9rem;
+    margin-bottom: 1.25rem;
     text-align: left;
+    line-height: 1.5;
   }
   
   .exhibition-description {
-    font-size: 0.95rem;
+    font-size: 0.875rem;
     max-height: none;
-    line-height: 1.8;
+    line-height: 1.75;
     padding-right: 0;
     text-align: left;
+    margin-bottom: 1.5rem;
   }
 
   .exhibition-description p {
-    margin-bottom: 1.25rem;
+    margin-bottom: 1rem;
   }
   
   .poster-banner-item {
     width: 50vw;
-    height: 50vh;
+    height: 45vh;
   }
 
   .start-button {
@@ -433,7 +459,8 @@
     width: 100%;
     margin: 0;
     border-radius: 0;
-    padding: 1.25rem calc(1.5rem + env(safe-area-inset-bottom));
+    padding: 1rem calc(1.5rem + env(safe-area-inset-bottom));
+    min-height: 60px;
     z-index: 1000;
     background: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(20px);
@@ -443,30 +470,45 @@
     border-right: none;
     border-bottom: none;
     color: #000000;
-    font-weight: 500;
+    font-weight: 600;
+    font-size: 0.95rem;
     align-self: stretch;
+    touch-action: manipulation;
   }
 
   .start-button:hover {
     background: rgba(255, 255, 255, 1);
+    transform: none;
+  }
+
+  .start-button:active {
+    background: rgba(255, 255, 255, 0.9);
   }
 
   .intro-poster-step {
     padding: 0;
     min-height: 100vh;
     min-height: 100dvh;
+    height: 100vh;
+    height: 100dvh;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    overflow: hidden;
   }
 
   .intro-poster-step .intro-poster {
     max-width: 100%;
     width: 100%;
-    height: 70vh;
-    min-height: 500px;
+    height: calc(100vh - 80px);
+    height: calc(100dvh - 80px);
+    min-height: calc(100vh - 80px);
+    min-height: calc(100dvh - 80px);
     border-radius: 0;
     flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .next-step-button {
@@ -477,7 +519,8 @@
     width: 100%;
     margin: 0;
     border-radius: 0;
-    padding: 1.25rem calc(1.5rem + env(safe-area-inset-bottom));
+    padding: 1rem calc(1.5rem + env(safe-area-inset-bottom));
+    min-height: 60px;
     z-index: 1000;
     background: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(20px);
@@ -487,13 +530,21 @@
     border-right: none;
     border-bottom: none;
     color: #000000;
-    font-weight: 500;
+    font-weight: 600;
+    font-size: 0.95rem;
+    touch-action: manipulation;
+  }
+
+  .next-step-button:active {
+    background: rgba(255, 255, 255, 0.9);
   }
 
   .back-step-button {
-    font-size: 0.9rem;
-    padding: 0.5rem 1rem;
+    font-size: 0.85rem;
+    padding: 0.75rem 1rem;
     margin-bottom: 1rem;
+    min-height: 44px;
+    touch-action: manipulation;
   }
 }
 
@@ -664,19 +715,29 @@
   }
 }
 
-/* mobile-mode 클래스가 있을 때 모바일 스타일 적용 */
+/* mobile-mode 클래스가 있을 때 모바일 스타일 적용 (H820 뷰포트) */
 html.mobile-mode .overview-container {
   padding: 0;
+  min-height: 100vh;
+  min-height: 100dvh;
+  height: auto;
+  overflow-x: hidden;
 }
 
 html.mobile-mode .overview-content-overlay {
   padding: 0;
   background: linear-gradient(
     to bottom,
-    rgba(0, 0, 0, 0.9) 0%,
-    rgba(0, 0, 0, 0.85) 50%,
-    rgba(0, 0, 0, 0.9) 100%
+    rgba(0, 0, 0, 0.95) 0%,
+    rgba(0, 0, 0, 0.9) 50%,
+    rgba(0, 0, 0, 0.95) 100%
   );
+  min-height: 100vh;
+  min-height: 100dvh;
+  height: auto;
+  overflow-x: hidden;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 html.mobile-mode .intro-header {
@@ -684,64 +745,82 @@ html.mobile-mode .intro-header {
   gap: 0;
   max-width: 100%;
   padding: 0;
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
 }
 
 html.mobile-mode .intro-poster {
-  height: 50vh;
-  min-height: 400px;
+  height: 45vh;
+  min-height: 320px;
+  max-height: 45vh;
   max-width: 100%;
   width: 100%;
   border-radius: 0;
+  flex-shrink: 0;
 }
 
 html.mobile-mode .intro-poster-media {
   border-radius: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 html.mobile-mode .intro-content {
-  padding: 2rem 1.5rem;
-  padding-bottom: calc(2rem + 100px);
+  padding: 1.5rem;
+  padding-top: 1.5rem;
+  padding-bottom: calc(1.5rem + 80px);
   text-align: left;
+  flex: 1;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 html.mobile-mode .exhibition-title {
-  font-size: 2.5rem;
-  margin-bottom: 1rem;
+  font-size: 2rem;
+  margin-bottom: 0.75rem;
   text-align: left;
+  line-height: 1.2;
 }
 
 html.mobile-mode .exhibition-subtitle {
-  font-size: 1rem;
-  margin-bottom: 1.5rem;
+  font-size: 0.9rem;
+  margin-bottom: 1.25rem;
   text-align: left;
+  line-height: 1.5;
 }
 
 html.mobile-mode .exhibition-description {
-  font-size: 0.95rem;
+  font-size: 0.875rem;
   max-height: none;
-  line-height: 1.8;
+  line-height: 1.75;
   padding-right: 0;
   text-align: left;
+  margin-bottom: 1.5rem;
 }
 
 html.mobile-mode .exhibition-description p {
-  margin-bottom: 1.25rem;
+  margin-bottom: 1rem;
 }
 
 html.mobile-mode .poster-banner-item {
   width: 50vw;
-  height: 50vh;
+  height: 45vh;
 }
 
 html.mobile-mode .start-button {
   position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  width: 100%;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  max-width: 800px;
+  width: calc(100% - 4rem);
   margin: 0;
-  border-radius: 0;
-  padding: 1.25rem calc(1.5rem + env(safe-area-inset-bottom));
+  border-radius: 0 0 24px 24px;
+  padding: 1rem calc(1.5rem + env(safe-area-inset-bottom));
+  min-height: 60px;
   z-index: 1000;
   background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(20px);
@@ -751,41 +830,59 @@ html.mobile-mode .start-button {
   border-right: none;
   border-bottom: none;
   color: #000000;
-  font-weight: 500;
+  font-weight: 600;
+  font-size: 0.95rem;
   align-self: stretch;
+  touch-action: manipulation;
 }
 
 html.mobile-mode .start-button:hover {
   background: rgba(255, 255, 255, 1);
+  transform: translateX(-50%);
+}
+
+html.mobile-mode .start-button:active {
+  background: rgba(255, 255, 255, 0.9);
+  transform: translateX(-50%);
 }
 
 html.mobile-mode .intro-poster-step {
   padding: 0;
   min-height: 100vh;
   min-height: 100dvh;
+  height: 100vh;
+  height: 100dvh;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  overflow: hidden;
 }
 
 html.mobile-mode .intro-poster-step .intro-poster {
   max-width: 100%;
   width: 100%;
-  height: 70vh;
-  min-height: 500px;
+  height: calc(100vh - 80px);
+  height: calc(100dvh - 80px);
+  min-height: calc(100vh - 80px);
+  min-height: calc(100dvh - 80px);
   border-radius: 0;
   flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 html.mobile-mode .next-step-button {
   position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  width: 100%;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  max-width: 800px;
+  width: calc(100% - 4rem);
   margin: 0;
-  border-radius: 0;
-  padding: 1.25rem calc(1.5rem + env(safe-area-inset-bottom));
+  border-radius: 0 0 24px 24px;
+  padding: 1rem calc(1.5rem + env(safe-area-inset-bottom));
+  min-height: 60px;
   z-index: 1000;
   background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(20px);
@@ -795,11 +892,19 @@ html.mobile-mode .next-step-button {
   border-right: none;
   border-bottom: none;
   color: #000000;
-  font-weight: 500;
+  font-weight: 600;
+  font-size: 0.95rem;
+  touch-action: manipulation;
+}
+
+html.mobile-mode .next-step-button:active {
+  background: rgba(255, 255, 255, 0.9);
 }
 
 html.mobile-mode .back-step-button {
-  font-size: 0.9rem;
-  padding: 0.5rem 1rem;
+  font-size: 0.85rem;
+  padding: 0.75rem 1rem;
   margin-bottom: 1rem;
+  min-height: 44px;
+  touch-action: manipulation;
 }

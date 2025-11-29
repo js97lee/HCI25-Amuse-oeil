@@ -16,6 +16,28 @@
   pointer-events: auto;
 }
 
+.global-brand-title {
+  background: transparent;
+  border: none;
+  color: #ffffff;
+  font-size: 1.2rem;
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: var(--font-luxury);
+  padding: 0.5rem 1rem;
+  text-transform: uppercase;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.global-brand-title:hover {
+  color: rgba(255, 255, 255, 0.7);
+  transform: translateX(-50%) scale(1.05);
+}
+
 .global-top-navigation-right {
   display: flex;
   align-items: center;
@@ -437,15 +459,69 @@
   }
 }
 
-/* 모바일 반응형 - 800px 기준 */
+/* 모바일 반응형 - 800px 기준 (H820 뷰포트) */
 @media (max-width: 800px) {
   .global-top-navigation {
-    top: 2rem;
-    padding: 0 1.5rem;
+    top: 0;
+    padding: 0 1rem;
     height: 60px;
-    background: rgba(0, 0, 0, 0.9);
+    background: rgba(0, 0, 0, 0.95);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .global-brand-title {
+    font-size: 0.9rem;
+    padding: 0.5rem 0.5rem;
+  }
+}
+
+/* mobile-mode일 때 GlobalMenu도 카드 안에 포함 */
+html.mobile-mode .global-top-navigation {
+  left: 50%;
+  transform: translateX(-50%);
+  max-width: 800px;
+  width: calc(100% - 4rem);
+  margin: 0;
+  border-radius: 24px 24px 0 0;
+  top: 2rem;
+  background: rgba(0, 0, 0, 0.95);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+html.mobile-mode .global-brand-title {
+  font-size: 0.95rem;
+  padding: 0.5rem 0.75rem;
+  transform: translateX(-50%);
+}
+
+html.mobile-mode .global-brand-title:hover {
+  transform: translateX(-50%) scale(1.05);
+}
+
+html.mobile-mode .global-menu-overlay {
+  left: 50%;
+  transform: translateX(-50%);
+  max-width: 800px;
+  width: calc(100% - 4rem);
+  margin: 0 2rem;
+  border-radius: 24px;
+}
+
+  .global-menu-button,
+  .global-language-toggle,
+  .global-device-toggle,
+  .global-mute-button {
+    font-size: 0.8rem;
+    padding: 0.5rem 0.75rem;
+    min-height: 44px;
+    touch-action: manipulation;
+  }
+
+  .global-top-navigation-right {
+    gap: 0.5rem;
   }
   .global-menu-overlay {
     justify-content: center;

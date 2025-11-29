@@ -49,6 +49,15 @@ function GlobalMenu() {
           (MENU)
         </button>
 
+        {/* 중앙: 브랜드 이름 - 홈으로 이동 */}
+        <button 
+          className="global-brand-title"
+          onClick={() => navigate('/')}
+          aria-label="Home"
+        >
+          AMUSE OEIL
+        </button>
+
         {/* 오른쪽: 언어 토글, 디바이스 변경 및 음소거 버튼 */}
         <div className="global-top-navigation-right">
           <button 
@@ -127,7 +136,7 @@ function GlobalMenu() {
                         Hayeon Lee <span className="global-menu-credit-separator">|</span> <a href="https://www.instagram.com/doozyism/" target="_blank" rel="noopener noreferrer" className="global-menu-credit-link">@doozyism</a>
                       </span>
                       <span className="global-menu-credit-value">
-                        Hannah Kim <span className="global-menu-credit-separator">|</span> <a href="https://www.instagram.com/ahaunnua/" target="_blank" rel="noopener noreferrer" className="global-menu-credit-link">@ahaunnua</a>
+                        Hannah Kim <span className="global-menu-credit-separator">|</span> <a href="https://www.instagram.com/ahanna.u/" target="_blank" rel="noopener noreferrer" className="global-menu-credit-link">@ahanna.u</a>
                       </span>
                       <span className="global-menu-credit-value">
                         Seojung Moon <span className="global-menu-credit-separator">|</span> <a href="https://www.instagram.com/seo.zg/" target="_blank" rel="noopener noreferrer" className="global-menu-credit-link">@seo.zg</a>

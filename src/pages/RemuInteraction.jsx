@@ -4,6 +4,7 @@ import { useApp } from '../contexts/AppContext';
 import GlassOverlay from '../components/GlassOverlay';
 import GlassCard from '../components/GlassCard';
 import GlassButton from '../components/GlassButton';
+import { saveSurveyToSheets, backupSurveyToLocalStorage } from '../utils/surveyService';
 import './RemuInteraction.css';
 
 function RemuInteraction() {
@@ -66,7 +67,7 @@ function RemuInteraction() {
     }
   };
 
-  const calculateRecommendation = (allAnswers) => {
+  const calculateRecommendation = async (allAnswers) => {
     // 선택한 답변에 따라 쉐프 추천 (임시 로직 - 추후 수정)
     // 현재는 랜덤하게 추천하지만, 실제로는 답변 패턴에 따라 결정
     const chefScores = { 1: 0, 2: 0, 3: 0 };
@@ -84,8 +85,29 @@ function RemuInteraction() {
       chefScores[a] > chefScores[b] ? a : b
     );
 
-    setRecommendedChef(parseInt(recommended));
+    const recommendedChefId = parseInt(recommended);
+    setRecommendedChef(recommendedChefId);
     setShowRecommendation(true);
+
+    // 설문 결과를 Google Sheets에 저장
+    const surveyData = {
+      language: language,
+      answers: allAnswers,
+      recommendedChef: recommendedChefId,
+      chefName: chefs[recommendedChefId]?.name || ''
+    };
+
+    // Google Sheets에 저장 시도
+    const saveResult = await saveSurveyToSheets(surveyData);
+    
+    // 실패해도 로컬 스토리지에 백업
+    backupSurveyToLocalStorage(surveyData);
+    
+    if (saveResult.success) {
+      console.log('Survey data saved to Google Sheets successfully');
+    } else {
+      console.warn('Failed to save to Google Sheets, but backed up locally:', saveResult.error);
+    }
   };
 
   const handleContinue = () => {

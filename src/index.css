@@ -132,12 +132,44 @@ body {
 /* mobile-mode 클래스가 있을 때 모바일 뷰포트 강제 적용 */
 html.mobile-mode {
   /* 모바일 모드 활성화 */
+  height: 100%;
+  overflow-x: hidden;
+  background: #1a1a2e; /* 다크 블루 배경 */
 }
 
 html.mobile-mode body {
   max-width: 800px;
-  margin: 0 auto;
+  width: 100%;
+  margin: 2rem auto;
   position: relative;
+  min-height: calc(100vh - 4rem);
+  min-height: calc(100dvh - 4rem);
+  background-color: var(--color-black);
+  border-radius: 24px;
+  box-shadow: 
+    0 20px 60px rgba(0, 0, 0, 0.5),
+    0 0 0 1px rgba(255, 255, 255, 0.1);
+  overflow: hidden;
+  padding: 0;
+}
+
+/* 모바일 모드에서 body가 카드처럼 보이도록 */
+html.mobile-mode body::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 24px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+html.mobile-mode #root {
+  border-radius: 24px;
+  overflow: hidden;
+  min-height: 100%;
 }
 
 /* mobile-mode일 때 모든 모바일 미디어 쿼리 스타일 적용 */
